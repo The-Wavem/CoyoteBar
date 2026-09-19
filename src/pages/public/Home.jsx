@@ -1,7 +1,12 @@
+import React from 'react';
+import Hero from '@sections/home/Hero';
+import Features from '@sections/home/Features';
+
 export default function Home() {
   return (
-    <div>
-      <h1>Coyote Bar</h1>
-    </div>
+    <>
+      <Hero />
+      <Features />
+    </>
   );
 }
