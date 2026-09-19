@@ -62,10 +62,24 @@ export default function Hero() {
 
   return (
     <section className={styles.heroContainer}>
+      {/* Top Center Masthead / Elegant Brand Title */}
+      <div className={styles.topMasthead}>
+        <div className={styles.mastheadLine} />
+        <div className={styles.mastheadContent}>
+          <span className={styles.mastheadTagline}>
+            <PlaceOutlinedIcon sx={{ fontSize: 13 }} />
+            SINCE 2017 • CIDADE INDUSTRIAL DE CURITIBA
+          </span>
+          <h2 className={styles.mastheadTitle}>
+            COYOTE <span className={styles.mastheadAccent}>BAR</span>
+          </h2>
+        </div>
+        <div className={styles.mastheadLine} />
+      </div>
+
       <div className={styles.heroContent}>
         {/* Left Column (Desktop: Order 1; Mobile: Order 2) */}
         <div className={styles.leftCol}>
-
           <h1 className={styles.mainTitle}>
             Onde cada brinde vira história e{' '}
             <span className={styles.amberGlow}>a noite nunca tem pressa.</span>
