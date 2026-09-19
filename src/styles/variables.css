@@ -1,0 +1,47 @@
+:root {
+  /* Bases Dark Pub */
+  --bg-primary: #0b0f19;
+  --bg-secondary: #131b2e;
+  --bg-surface: #172138;
+  --bg-elevated: #1d2840;
+
+  /* Coyote Identity Colors (Lobo & Escudo) */
+  --brand-blue: #1e5bf8;
+  --brand-blue-light: #4a7fff;
+  --brand-blue-dark: #10359c;
+  --brand-blue-glow: rgba(30, 91, 248, 0.25);
+
+  /* Pub & Cerveja Accent Colors */
+  --accent-amber: #f59e0b;
+  --accent-amber-hover: #d97706;
+  --accent-amber-glow: rgba(245, 158, 11, 0.2);
+
+  /* Text & Content */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #0b0f19;
+
+  /* Linhas e Divisões */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-brand: rgba(30, 91, 248, 0.4);
+
+  /* Feedback / Status */
+  --status-open: #10b981;
+  --status-closed: #ef4444;
+
+  /* Tipografia */
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+
+  /* Espaçamentos e Raios */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Transições */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.25s ease-in-out;
+}
