@@ -1,13 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
-import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import CoyoteLogo from "../common/CoyoteLogo";
-import styles from "./Footer.module.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import MusicNoteOutlinedIcon from '@mui/icons-material/MusicNoteOutlined';
+import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
+import FamilyRestroomOutlinedIcon from '@mui/icons-material/FamilyRestroomOutlined';
+import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import CoyoteLogo from '../common/CoyoteLogo';
+import styles from './Footer.module.css';
 
 export default function Footer() {
   return (
@@ -22,7 +25,23 @@ export default function Footer() {
                 COYOTE <span className={styles.brandAccent}>BAR</span>
               </span>
             </Link>
-            <p className={styles.slogan}>Since 2017</p>
+            <p className={styles.slogan}>
+              Since 2017 — Servindo mais que bebidas, servindo memórias. O pub acolhedor da CIC para reunir amigos, curtir boa música e aproveitar os melhores momentos.
+            </p>
+            <div className={styles.vibePills}>
+              <span className={styles.pill}>
+                <MusicNoteOutlinedIcon sx={{ fontSize: 14 }} />
+                Música ao Vivo
+              </span>
+              <span className={styles.pill}>
+                <SportsEsportsOutlinedIcon sx={{ fontSize: 14 }} />
+                Sinuca
+              </span>
+              <span className={styles.pill}>
+                <FamilyRestroomOutlinedIcon sx={{ fontSize: 14 }} />
+                Ambiente Familiar
+              </span>
+            </div>
           </div>
 
           {/* Column 2: Navigation */}
@@ -50,10 +69,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/admin"
-                  className={`${styles.footerLink} ${styles.adminLink}`}
-                >
+                <Link to="/admin" className={`${styles.footerLink} ${styles.adminLink}`}>
                   <LockOutlinedIcon sx={{ fontSize: 14 }} />
                   Área Administrativa
                 </Link>
@@ -70,29 +86,33 @@ export default function Footer() {
             </div>
 
             <div className={styles.infoItem}>
-              <AccessTimeOutlinedIcon
-                fontSize="small"
-                className={styles.infoIcon}
-              />
+              <AccessTimeOutlinedIcon fontSize="small" className={styles.infoIcon} />
               <div>
                 <strong>Terça a Domingo:</strong>
                 <div>18:00 às 02:00</div>
               </div>
+            </div>
+
+            <div className={styles.statusIndicator}>
+              <span className={styles.statusDot} />
+              <span className={styles.statusText}>
+                Aberto hoje a partir das 18h
+              </span>
             </div>
           </div>
 
           {/* Column 4: Social & WhatsApp */}
           <div className={styles.column}>
             <h4 className={styles.columnTitle}>Conecte-se</h4>
-            <p style={{ fontSize: "0.875rem", lineHeight: 1.5 }}>
+            <p style={{ fontSize: '0.875rem', lineHeight: 1.5 }}>
               Acompanhe as novidades e converse diretamente com a nossa equipe.
             </p>
             <div className={styles.socialRow}>
               <a
-                href="https://instagram.com"
+                href="https://instagram.com/coyotebarcwb"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${styles.socialBtn} ${styles.socialBtnInstagram}`}
+                className={styles.socialBtn}
                 aria-label="Instagram do Coyote Bar"
               >
                 <InstagramIcon fontSize="small" />
@@ -107,7 +127,7 @@ export default function Footer() {
                 <FacebookIcon fontSize="small" />
               </a>
               <a
-                href="https://wa.me/5541999999999"
+                href="https://wa.me/5541997683925"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.socialBtn} ${styles.socialBtnWhatsApp}`}
@@ -121,12 +141,9 @@ export default function Footer() {
 
         {/* Bottom Copyright Bar */}
         <div className={styles.bottomBar}>
+          <span>&copy; {new Date().getFullYear()} Coyote Bar. Todos os direitos reservados.</span>
           <span>
-            &copy; {new Date().getFullYear()} Coyote Bar. Todos os direitos
-            reservados.
-          </span>
-          <span>
-            Desenvolvido com carinho por{" "}
+            Desenvolvido com carinho por{' '}
             <a
               href="https://thewavem.com"
               target="_blank"

@@ -42,7 +42,7 @@
 }
 
 .brandAccent {
-  color: var(--brand-blue-light);
+  color: var(--accent-amber);
 }
 
 .slogan {
@@ -100,7 +100,7 @@
 }
 
 .footerLink:hover {
-  color: var(--brand-blue-light);
+  color: var(--accent-amber);
   transform: translateX(2px);
 }
 
@@ -124,8 +124,29 @@
 }
 
 .infoIcon {
-  color: var(--brand-blue-light);
+  color: var(--accent-amber);
   margin-top: 2px;
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--status-open);
+  box-shadow: 0 0 8px var(--status-open);
+}
+
+.statusText {
+  font-size: 0.8rem;
+  color: var(--status-open);
+  font-weight: 600;
 }
 
 .socialRow {
@@ -149,22 +170,18 @@
 }
 
 .socialBtn:hover {
-  background-color: var(--brand-blue);
-  border-color: var(--brand-blue-light);
-  color: var(--text-primary);
+  background-color: var(--accent-amber);
+  border-color: var(--accent-amber-light);
+  color: var(--text-inverse);
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--accent-amber-glow);
 }
 
 .socialBtnWhatsApp:hover {
   background-color: #25d366;
   border-color: #25d366;
   color: #ffffff;
-}
-
-.socialBtnInstagram:hover {
-  background-color: #e1306c;
-  border-color: #e1306c;
-  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
 }
 
 .bottomBar {
@@ -179,14 +196,14 @@
 }
 
 .wavemLink {
-  color: var(--brand-blue-light);
+  color: var(--accent-amber);
   text-decoration: none;
   font-weight: 600;
   transition: color var(--transition-fast);
 }
 
 .wavemLink:hover {
-  color: var(--accent-amber);
+  color: var(--accent-amber-light);
 }
 
 @media (max-width: 992px) {
