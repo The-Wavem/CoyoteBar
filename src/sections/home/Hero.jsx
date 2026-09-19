@@ -10,9 +10,6 @@ import styles from './Hero.module.css';
 export default function Hero() {
   return (
     <section className={styles.heroSection}>
-      <Badge variant="amber" icon={<SportsBarOutlinedIcon fontSize="small" />}>
-        Since 2017 • CIC Curitiba
-      </Badge>
 
       <h1 className={styles.title}>
         Mais que Bebidas, <span className={styles.titleHighlight}>Servindo Memórias</span>
