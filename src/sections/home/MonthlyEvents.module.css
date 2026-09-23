@@ -1,7 +1,7 @@
 .eventsSection {
   position: relative;
   width: 100%;
-  background-color: #07080b;
+  background-color: var(--bg-primary);
   padding: 5rem 1.5rem 6.5rem;
   overflow: hidden;
 }
@@ -15,7 +15,7 @@
   transform: translateX(-50%);
   width: 700px;
   height: 400px;
-  background: radial-gradient(ellipse at center, rgba(245, 158, 11, 0.06) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(232, 158, 36, 0.08) 0%, transparent 70%);
   pointer-events: none;
   z-index: 1;
 }
@@ -45,9 +45,9 @@
   gap: 0.5rem;
   padding: 0.45rem 1.15rem;
   border-radius: var(--radius-full);
-  background: rgba(245, 158, 11, 0.08);
-  border: 1px solid rgba(245, 158, 11, 0.28);
-  color: var(--accent-amber);
+  background: rgba(232, 158, 36, 0.09);
+  border: 1px solid rgba(232, 158, 36, 0.3);
+  color: var(--accent-amber-light);
   font-family: var(--font-body);
   font-size: 0.825rem;
   font-weight: 700;
@@ -73,7 +73,7 @@
 
 .sectionSubtitle {
   font-size: clamp(1rem, 1.8vw, 1.15rem);
-  color: #cbd5e1;
+  color: #b8b0a2;
   line-height: 1.65;
   max-width: 720px;
 }
@@ -91,19 +91,19 @@
   align-items: center;
   gap: 2rem;
   padding: 2rem 1.5rem;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+  border-bottom: 1px dashed rgba(245, 185, 69, 0.16);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   position: relative;
 }
 
 .lineupRow:first-child {
-  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  border-top: 1px dashed rgba(245, 185, 69, 0.16);
 }
 
 .lineupRow:hover {
-  background: rgba(245, 158, 11, 0.035);
-  border-bottom-color: rgba(245, 158, 11, 0.35);
+  background: rgba(232, 158, 36, 0.04);
+  border-bottom-color: rgba(232, 158, 36, 0.4);
   padding-left: 2rem;
 }
 
@@ -124,7 +124,7 @@
 }
 
 .lineupRow:hover .dayTag {
-  color: var(--accent-amber);
+  color: var(--accent-amber-light);
 }
 
 .timeTag {
@@ -134,7 +134,7 @@
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 600;
-  color: #94a3b8;
+  color: #7d7568;
 }
 
 /* Center: Attraction Details */
@@ -148,7 +148,7 @@
   font-family: var(--font-heading);
   font-size: 1.2rem;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #fbf8f2;
   letter-spacing: -0.01em;
   display: flex;
   align-items: center;
@@ -163,7 +163,7 @@
 
 .attractionDesc {
   font-size: 0.95rem;
-  color: #94a3b8;
+  color: #b8b0a2;
   line-height: 1.5;
 }
 
@@ -181,8 +181,8 @@
   padding: 0.45rem 1rem;
   border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #cbd5e1;
+  border: 1px solid rgba(245, 185, 69, 0.2);
+  color: #d1c8b8;
   font-size: 0.825rem;
   font-weight: 600;
   transition: all var(--transition-fast);
@@ -190,9 +190,9 @@
 }
 
 .lineupRow:hover .actionBadge {
-  background: rgba(245, 158, 11, 0.15);
-  border-color: rgba(245, 158, 11, 0.4);
-  color: var(--accent-amber);
+  background: rgba(232, 158, 36, 0.16);
+  border-color: rgba(232, 158, 36, 0.45);
+  color: var(--accent-amber-light);
 }
 
 /* Bottom Reservation Callout */
@@ -203,11 +203,11 @@
   gap: 2rem;
   padding: 2.25rem 2.5rem;
   border-radius: var(--radius-xl);
-  background: linear-gradient(135deg, rgba(23, 27, 38, 0.7) 0%, rgba(14, 16, 23, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(28, 25, 20, 0.8) 0%, rgba(18, 16, 12, 0.95) 100%);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(245, 158, 11, 0.22);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  border: 1.5px dashed rgba(232, 158, 36, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
 }
 
 .reservationContent {
@@ -226,7 +226,7 @@
 
 .reservationText {
   font-size: 0.95rem;
-  color: #cbd5e1;
+  color: #b8b0a2;
   line-height: 1.5;
 }
 
@@ -237,7 +237,7 @@
   padding: 0.95rem 1.85rem;
   border-radius: var(--radius-full);
   background: #25d366;
-  color: #07080b;
+  color: #0f0e0c;
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 800;

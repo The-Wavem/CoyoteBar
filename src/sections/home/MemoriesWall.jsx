@@ -2,61 +2,62 @@ import React from 'react';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import CelebrationOutlinedIcon from '@mui/icons-material/CelebrationOutlined';
-import QueueMusicOutlinedIcon from '@mui/icons-material/QueueMusicOutlined';
-import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
-import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
 import styles from './MemoriesWall.module.css';
 
-const MEMORIES = [
+const POLAROIDS = [
   {
     id: 1,
-    className: styles.itemLarge,
-    title: 'O Ponto de Encontro da CIC',
-    tag: 'Amizades & Brindes',
-    icon: <Diversity3OutlinedIcon sx={{ fontSize: 15 }} />,
-    desc: 'Onde o fim de tarde vira noite sem ninguém perceber e as conversas fluem soltas no balcão.',
-    image: 'https://images.unsplash.com/photo-1575444758702-4a6b9222336e?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Amigos brindando com chopps no balcão do Coyote',
+    rotationClass: styles.rotateLeft,
+    note: 'Sextou com a turma no balcão',
+    tag: 'Chopp & Amigos',
+    date: 'Sexta à noite',
+    image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80',
+    alt: 'Amigos brindando copos de chopp em mesa de madeira',
   },
   {
     id: 2,
-    className: styles.itemMedium,
-    title: 'Acústico & Palco Aberto',
-    tag: 'Música ao Vivo',
-    icon: <QueueMusicOutlinedIcon sx={{ fontSize: 15 }} />,
-    desc: 'Sextas e sábados com pop rock, modão e vozes que embalam o salão todo.',
-    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
-    alt: 'Show acústico de bar com violão',
+    rotationClass: styles.rotateRight,
+    note: 'Final do campeonato de sinuca da CIC',
+    tag: 'Mesa de Bilhar',
+    date: 'Quinta dos amigos',
+    image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80',
+    alt: 'Taco e bolas de sinuca sob a lâmpada do Coyote',
   },
   {
     id: 3,
-    className: styles.itemSmall1,
-    title: 'O Estalo da Bola 8',
-    tag: 'Mesa de Sinuca',
-    icon: <SportsEsportsOutlinedIcon sx={{ fontSize: 15 }} />,
-    desc: 'Partidas clássicas que decidem quem paga a próxima rodada de chopp.',
-    image: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80',
-    alt: 'Mesa de sinuca sob luz quente',
+    rotationClass: styles.rotateSlightLeft,
+    note: 'Pop rock e modão com a casa cantando junto',
+    tag: 'Música ao Vivo',
+    date: 'Sábado no palco',
+    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+    alt: 'Músico com violão tocando ao vivo no bar',
   },
   {
     id: 4,
-    className: styles.itemSmall2,
-    title: 'Chapa Quente & Porções Fartas',
-    tag: 'Cozinha de Boteco',
-    icon: <RestaurantOutlinedIcon sx={{ fontSize: 15 }} />,
-    desc: 'Tulipas crocantes, batatas especiais e o tempero raiz que a galera adora.',
-    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80',
-    alt: 'Porções generosas de boteco servidas na mesa',
+    rotationClass: styles.rotateSlightRight,
+    note: 'Aquela tulipa crocante que não dá pra dividir',
+    tag: 'Chapa Quente',
+    date: 'Receita do bar',
+    image: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=800&q=80',
+    alt: 'Porção crocante de tulipa e petiscos servidos na mesa',
   },
   {
     id: 5,
-    className: styles.itemSmall3,
-    title: 'Celebrar é com a Gente',
-    tag: 'Comemorações',
-    icon: <CelebrationOutlinedIcon sx={{ fontSize: 15 }} />,
-    desc: 'Aniversários, encontros de firma e até casamentos já foram festejados aqui.',
+    rotationClass: styles.rotateTiltedLeft,
+    note: 'O brinde do 2º casamento oficial do Coyote!',
+    tag: 'Histórias Reais',
+    date: 'Amor & Boteco',
     image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80',
-    alt: 'Grupo de pessoas comemorando e sorrindo juntas',
+    alt: 'Comemoração calorosa entre amigos e casal',
+  },
+  {
+    id: 6,
+    rotationClass: styles.rotateTiltedRight,
+    note: 'Feijoada farta de sábado da Ana',
+    tag: 'Almoço da Família',
+    date: 'Tradição do meio-dia',
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
+    alt: 'Buffet tradicional de feijoada completa no almoço',
   },
 ];
 
@@ -76,22 +77,31 @@ export default function MemoriesWall() {
             <span className={styles.amberGlow}>histórias reais</span>
           </h2>
 
-          <p className={styles.sectionSubtitle}>
-            O Coyote não é apenas um endereço na CIC; é a extensão da sala de estar de quem vive a rotina de Curitiba. Um balcão sem pose, onde o chopp gelado aproxima mesas, desconhecidos viram parceiros de sinuca e as noites viram memórias para a vida toda.
+          {/* Handwritten Subtitle in Caveat */}
+          <p className={styles.handwrittenSubtitle}>
+            mais que um bar, a extensão da sala de casa
           </p>
 
+          <p className={styles.sectionSubtitle}>
+            O Coyote não é apenas um endereço na CIC; é onde os amigos se reúnem em volta de mesas de madeira rústica, os copos americanos suam com chopp trincando e os abraços são de verdade.
+          </p>
+
+          {/* Irreverent Wedding Callout with Handwritten Badge */}
           <div className={styles.weddingHighlight}>
-            <FavoriteBorderOutlinedIcon sx={{ fontSize: 20, color: 'var(--accent-amber)' }} />
-            <span>
-              Um lugar com tanta conexão que já foi palco de amizades eternas e até de <strong>2 casamentos</strong> comemorados com muito brinde!
+            <FavoriteBorderOutlinedIcon sx={{ fontSize: 22, color: 'var(--accent-amber)' }} />
+            <span className={styles.weddingBadge}>
+              Sim, já comemoramos 2 casamentos aqui!
             </span>
           </div>
         </div>
 
-        {/* Dynamic Mosaic Grid */}
-        <div className={styles.mosaicGrid}>
-          {MEMORIES.map((item) => (
-            <div key={item.id} className={`${styles.mosaicItem} ${item.className}`}>
+        {/* Organic Polaroid Grid */}
+        <div className={styles.polaroidGrid}>
+          {POLAROIDS.map((item) => (
+            <article
+              key={item.id}
+              className={`${styles.polaroidCard} ${item.rotationClass}`}
+            >
               <div className={styles.photoWrapper}>
                 <img
                   src={item.image}
@@ -99,20 +109,20 @@ export default function MemoriesWall() {
                   className={styles.photoImg}
                   loading="lazy"
                 />
-                <div className={styles.photoOverlay}>
-                  <span className={styles.photoTag}>
-                    {item.icon}
-                    {item.tag}
-                  </span>
-                  <h3 className={styles.photoTitle}>{item.title}</h3>
-                  <p className={styles.photoDesc}>{item.desc}</p>
+              </div>
+
+              <div className={styles.polaroidFooter}>
+                <p className={styles.polaroidNote}>"{item.note}"</p>
+                <div className={styles.polaroidMeta}>
+                  <span className={styles.polaroidTag}>{item.tag}</span>
+                  <span className={styles.polaroidDate}>{item.date}</span>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
-        {/* Tradition Seal Banner */}
+        {/* Tradition Carimbo Stamp Banner */}
         <div className={styles.heritageBanner}>
           <div className={styles.heritageLeft}>
             <div className={styles.sealIconCircle}>

@@ -1,16 +1,20 @@
 :root {
-  /* Bases Dark Quente (Carvão e Madeira) */
-  --bg-primary: #07080b;
-  --bg-secondary: #11141c;
-  --bg-surface: #171b26;
-  --bg-elevated: #1e2332;
+  /* Bases Carvão e Madeira Escura Aconchegante (menos digital, mais orgânico) */
+  --bg-primary: #0f0e0c;
+  --bg-secondary: #161410;
+  --bg-surface: #1e1b15;
+  --bg-card-photo: #26221c;
+  --bg-elevated: #28241d;
 
-  /* Luzes Quentes & Acolhedoras (Lâmpadas de Filamento, Chopp e Fachada) */
-  --accent-amber: #f59e0b;
-  --accent-amber-light: #fbbf24;
-  --accent-amber-hover: #d97706;
-  --accent-amber-glow: rgba(245, 158, 11, 0.16);
-  --warm-light-ambient: rgba(251, 191, 36, 0.08);
+  /* Âmbar Mel / Chopp Dourado / Lâmpada de Filamento */
+  --accent-amber: #e89e24;
+  --accent-amber-light: #f5b945;
+  --accent-amber-hover: #d48211;
+  --accent-amber-warm: #d48211;
+  --accent-amber-glow: rgba(232, 158, 36, 0.18);
+  --accent-filament-glow: rgba(232, 158, 36, 0.18);
+  --warm-light-ambient: rgba(245, 185, 69, 0.08);
+  --warm-light-beam: radial-gradient(ellipse at 50% -10%, rgba(245, 185, 69, 0.22) 0%, rgba(232, 158, 36, 0.08) 45%, transparent 75%);
 
   /* Identidade do Coyote (Preservada no Escudo e Detalhes) */
   --brand-blue: #1e5bf8;
@@ -18,25 +22,26 @@
   --brand-blue-dark: #10359c;
   --brand-blue-glow: rgba(30, 91, 248, 0.25);
 
-  /* Textos & Tipografia */
-  --text-primary: #fbfbfb;
-  --text-secondary: #a3aab8;
-  --text-muted: #6b7280;
-  --text-inverse: #090a0f;
+  /* Textos Orgânicos */
+  --text-primary: #fbf8f2;
+  --text-secondary: #b8b0a2;
+  --text-muted: #7d7568;
+  --text-inverse: #0f0e0c;
 
-  /* Bordas Sutis & Divisões */
-  --border-subtle: rgba(255, 255, 255, 0.07);
+  /* Tipografia */
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-handwritten: 'Caveat', cursive;
+
+  /* Bordas Suaves */
+  --border-subtle: rgba(245, 185, 69, 0.1);
   --border-medium: rgba(255, 255, 255, 0.14);
-  --border-warm: rgba(245, 158, 11, 0.3);
+  --border-warm: rgba(232, 158, 36, 0.28);
   --border-brand: rgba(30, 91, 248, 0.4);
 
   /* Feedback / Status */
   --status-open: #10b981;
   --status-closed: #ef4444;
-
-  /* Tipografia */
-  --font-heading: 'Montserrat', sans-serif;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
 
   /* Espaçamentos e Raios */
   --radius-sm: 6px;

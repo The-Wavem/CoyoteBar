@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
 import RestaurantMenuOutlinedIcon from '@mui/icons-material/RestaurantMenuOutlined';
 import NearMeOutlinedIcon from '@mui/icons-material/NearMeOutlined';
 import styles from './Hero.module.css';
@@ -9,22 +8,22 @@ const HERO_SLIDES = [
   {
     id: 1,
     url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1920&q=80',
-    alt: 'Balcão de bar e chopp gelado no Coyote Bar',
+    alt: 'Copos de chopp suando sobre mesa de madeira no Coyote Bar',
   },
   {
     id: 2,
-    url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1920&q=80',
-    alt: 'Carnes e porções na brasa',
+    url: 'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1920&q=80',
+    alt: 'Pessoas reunidas rindo e conversando no bar à noite',
   },
   {
     id: 3,
-    url: 'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1920&q=80',
-    alt: 'Luzes quentes e noite com música ao vivo',
+    url: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1920&q=80',
+    alt: 'Chapa quente estalando com petiscos e porções de boteco',
   },
   {
     id: 4,
-    url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1920&q=80',
-    alt: 'Buffet farto e comida caseira no almoço da CIC',
+    url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1920&q=80',
+    alt: 'Mesa de sinuca sob iluminação acolhedora de pub',
   },
 ];
 
@@ -51,6 +50,9 @@ export default function Hero() {
       onTouchEnd={() => setIsPaused(false)}
       aria-label="Destaques do Coyote Bar"
     >
+      {/* Top Filament Bulb Glow Effect */}
+      <div className={styles.topLightBeam} aria-hidden="true" />
+
       {/* Background Slider with Crossfade Effect */}
       <div className={styles.sliderTrack} aria-hidden="true">
         {HERO_SLIDES.map((slide, index) => {
@@ -67,23 +69,21 @@ export default function Hero() {
         })}
       </div>
 
-      {/* Atmospheric Dark & Amber Gradient Overlay */}
+      {/* Atmospheric Dark Wood & Amber Gradient Overlay */}
       <div className={styles.overlay} aria-hidden="true" />
 
       {/* Floating Content */}
       <div className={styles.heroContent}>
-        <div className={styles.badge}>
-          <PlaceOutlinedIcon sx={{ fontSize: 16 }} />
-          <span>Coyote Bar — Desde 2017 • CIC Curitiba</span>
-        </div>
+        {/* Handwritten Annotation in Caveat */}
+        <span className={styles.handwrittenBadge}>o autêntico boteco da CIC</span>
 
         <h1 className={styles.mainTitle}>
-          Servindo mais que bebidas.{' '}
-          <span className={styles.amberGlow}>Servindo memórias.</span>
+          Onde cada brinde vira história e{' '}
+          <span className={styles.amberGlow}>a noite nunca tem pressa.</span>
         </h1>
 
         <p className={styles.subtitle}>
-          O boteco curitibano onde a chapa tá sempre quente, o chopp sempre trincando e a noite nunca tem hora para acabar.
+          O boteco curitibano onde a chapa tá sempre quente, o chopp sempre trincando e os amigos nunca têm hora para ir embora.
         </p>
 
         <div className={styles.ctaGroup}>
@@ -96,6 +96,17 @@ export default function Hero() {
             <NearMeOutlinedIcon sx={{ fontSize: 20 }} />
             <span>Como Chegar</span>
           </Link>
+        </div>
+
+        {/* Retro Carimbo Stamp */}
+        <div className={styles.retroStamp}>
+          <span>Cerveja gelada</span>
+          <span className={styles.stampDivider}>•</span>
+          <span>Sinuca estalando</span>
+          <span className={styles.stampDivider}>•</span>
+          <span>Sabores de boteco</span>
+          <span className={styles.stampDivider}>•</span>
+          <span>Desde 2017</span>
         </div>
       </div>
 

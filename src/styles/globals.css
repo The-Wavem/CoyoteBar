@@ -14,6 +14,11 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-body);
+  position: relative;
+  background-image: 
+    radial-gradient(rgba(245, 185, 69, 0.03) 1px, transparent 0),
+    linear-gradient(to bottom, rgba(15, 14, 12, 0.95), var(--bg-primary));
+  background-size: 24px 24px, 100% 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
