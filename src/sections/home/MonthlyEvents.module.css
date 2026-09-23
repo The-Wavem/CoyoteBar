@@ -57,11 +57,12 @@
 
 .sectionTitle {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-  font-weight: 800;
+  font-size: clamp(2.6rem, 5.2vw, 4.2rem);
+  font-weight: 400;
+  text-transform: uppercase;
   color: #ffffff;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
 }
 
 .amberGlow {
@@ -116,10 +117,11 @@
 
 .dayTag {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-size: 1.45rem;
+  font-weight: 400;
+  text-transform: uppercase;
   color: #ffffff;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.04em;
   transition: color var(--transition-fast);
 }
 

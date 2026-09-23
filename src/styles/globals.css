@@ -31,6 +31,9 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  text-transform: uppercase;
 }
 
 /* Custom Dark Scrollbar */

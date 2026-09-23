@@ -2,6 +2,7 @@ import React from 'react';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import CelebrationOutlinedIcon from '@mui/icons-material/CelebrationOutlined';
+import CoyoteWatcher from '@components/common/CoyoteWatcher';
 import styles from './MemoriesWall.module.css';
 
 const POLAROIDS = [
@@ -65,33 +66,39 @@ export default function MemoriesWall() {
   return (
     <section className={styles.wallSection} aria-labelledby="memories-heading">
       <div className={styles.container}>
-        {/* Header */}
-        <div className={styles.headerArea}>
-          <div className={styles.sectionBadge}>
-            <Diversity3OutlinedIcon sx={{ fontSize: 16 }} />
-            <span>Nossa Casa, Nossa Gente</span>
+        {/* Header Row with Mascot */}
+        <div className={styles.headerRow}>
+          <div className={styles.headerArea}>
+            <div className={styles.sectionBadge}>
+              <Diversity3OutlinedIcon sx={{ fontSize: 16 }} />
+              <span>Nossa Casa, Nossa Gente</span>
+            </div>
+
+            <h2 id="memories-heading" className={styles.sectionTitle}>
+              8 anos de risadas, encontros e{' '}
+              <span className={styles.amberGlow}>histórias reais</span>
+            </h2>
+
+            {/* Handwritten Subtitle in Caveat */}
+            <p className={styles.handwrittenSubtitle}>
+              mais que um bar, a extensão da sala de casa
+            </p>
+
+            <p className={styles.sectionSubtitle}>
+              O Coyote não é apenas um endereço na CIC; é onde os amigos se reúnem em volta de mesas de madeira rústica, os copos americanos suam com chopp trincando e os abraços são de verdade.
+            </p>
+
+            {/* Irreverent Wedding Callout with Handwritten Badge */}
+            <div className={styles.weddingHighlight}>
+              <FavoriteBorderOutlinedIcon sx={{ fontSize: 22, color: 'var(--accent-amber)' }} />
+              <span className={styles.weddingBadge}>
+                Sim, já comemoramos 2 casamentos aqui!
+              </span>
+            </div>
           </div>
 
-          <h2 id="memories-heading" className={styles.sectionTitle}>
-            8 anos de risadas, encontros e{' '}
-            <span className={styles.amberGlow}>histórias reais</span>
-          </h2>
-
-          {/* Handwritten Subtitle in Caveat */}
-          <p className={styles.handwrittenSubtitle}>
-            mais que um bar, a extensão da sala de casa
-          </p>
-
-          <p className={styles.sectionSubtitle}>
-            O Coyote não é apenas um endereço na CIC; é onde os amigos se reúnem em volta de mesas de madeira rústica, os copos americanos suam com chopp trincando e os abraços são de verdade.
-          </p>
-
-          {/* Irreverent Wedding Callout with Handwritten Badge */}
-          <div className={styles.weddingHighlight}>
-            <FavoriteBorderOutlinedIcon sx={{ fontSize: 22, color: 'var(--accent-amber)' }} />
-            <span className={styles.weddingBadge}>
-              Sim, já comemoramos 2 casamentos aqui!
-            </span>
+          <div className={styles.mascotWrapper}>
+            <CoyoteWatcher size={115} />
           </div>
         </div>
 

@@ -42,12 +42,29 @@
 }
 
 /* Header Area */
+.headerRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2.5rem;
+  width: 100%;
+}
+
 .headerArea {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.15rem;
   max-width: 840px;
+  flex: 1;
+}
+
+.mascotWrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.75rem;
 }
 
 .sectionBadge {
@@ -68,11 +85,12 @@
 
 .sectionTitle {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-  font-weight: 800;
+  font-size: clamp(2.6rem, 5.2vw, 4.2rem);
+  font-weight: 400;
+  text-transform: uppercase;
   color: #ffffff;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
 }
 
 .amberGlow {
@@ -352,6 +370,14 @@
 
   .statItem {
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
   }
 }
 
