@@ -69,10 +69,6 @@ export default function MemoriesWall() {
         {/* Header Row with Mascot */}
         <div className={styles.headerRow}>
           <div className={styles.headerArea}>
-            <div className={styles.sectionBadge}>
-              <Diversity3OutlinedIcon sx={{ fontSize: 16 }} />
-              <span>Nossa Casa, Nossa Gente</span>
-            </div>
 
             <h2 id="memories-heading" className={styles.sectionTitle}>
               8 anos de risadas, encontros e{' '}
