@@ -85,10 +85,6 @@ export default function InstagramFeed() {
       <div className={styles.container}>
         {/* Cabeçalho */}
         <div className={styles.headerBlock}>
-          <div className={styles.tag}>
-            <CameraAltOutlined sx={{ fontSize: 16 }} />
-            <span>Ao Vivo nas Redes</span>
-          </div>
 
           <h2 id="instagram-feed-title" className={styles.title}>
             A ALCATEIA NO INSTAGRAM

@@ -14,7 +14,6 @@ const EXPERIENCES = [
   {
     id: "sinuca",
     icon: SportsEsportsOutlined,
-    tag: "TRADIÇÃO DO BAR",
     title: "A MESA DE SINUCA",
     desc: "O estalo inconfundível das bolas, o giz azul no taco e as disputas acirradas que decidem quem paga a próxima rodada de chopp.",
     handwritten: "quem perde a ficha paga a saideira!",
@@ -24,7 +23,6 @@ const EXPERIENCES = [
   {
     id: "chapa",
     icon: RestaurantOutlined,
-    tag: "SABORES CASEIROS",
     title: "A CHAPA & O FOGÃO",
     desc: "Do buffet farto com bife acebolado no almoço às tulipas crocantes, batatas rústicas e pastéis quentinhos servidos na mesa à noite.",
     handwritten: "o cheiro bom que puxa quem passa na rua!",
@@ -34,7 +32,6 @@ const EXPERIENCES = [
   {
     id: "clima",
     icon: LocalFireDepartmentOutlined,
-    tag: "DNA CURITIBANO",
     title: "O CLIMA DA CASA",
     desc: "Chuva, neblina ou vento sul: nosso salão coberto de madeira é o refúgio perfeito, com cumbuca de caldo fervendo e chopp trincando o ano todo.",
     handwritten: "quentinho por dentro, trincando no copo!",
@@ -72,12 +69,8 @@ export default function BarAtmosphere() {
                 />
                 <div className={styles.cardOverlay} />
 
-                <div className={styles.cardTop}>
-                  <span className={styles.cardTag}>
-                    <Icon fontSize="small" />
-                    <span>{item.tag}</span>
-                  </span>
-                </div>
+                <div className={styles.cardTop} />
+
 
                 <div className={styles.cardContent}>
                   <h3 className={styles.cardTitle}>{item.title}</h3>
@@ -94,10 +87,6 @@ export default function BarAtmosphere() {
         {/* Bloco de Coordenadas, Horários e Mapa Interativo Dark */}
         <div className={styles.coordinatesBanner}>
           <div className={styles.coordsMain}>
-            <div className={styles.coordsTag}>
-              <PlaceOutlined fontSize="small" />
-              <span>COORDENADAS NA CIDADE INDUSTRIAL</span>
-            </div>
             <h3 className={styles.coordsTitle}>
               R. GASTÃO DE ABREU PIRES, 210
             </h3>
