@@ -1,91 +1,161 @@
 import React from 'react';
-import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import Card from '@components/ui/Card';
-import Button from '@components/ui/Button';
+import {
+  WhatsApp,
+  Instagram,
+  PlaceOutlined,
+  AccessTimeOutlined,
+  PhoneInTalkOutlined,
+  NearMeOutlined,
+} from '@mui/icons-material';
 import styles from './ContactChannels.module.css';
 
 export default function ContactChannels() {
-  const contactChannels = [
+  const WHATSAPP_PHONE = '5541997683925';
+  const DISPLAY_PHONE = '(41) 99768-3925';
+
+  const quickMessages = [
     {
-      title: 'WhatsApp de Reservas',
-      description: 'Garanta sua mesa para aniversários, reuniões de amigos ou eventos fechados.',
-      actionText: 'Conversar no WhatsApp',
-      actionHref: 'https://wa.me/5541999999999?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20uma%20reserva%20no%20Coyote%20Bar.',
-      icon: <WhatsAppIcon />,
-      isAmber: true,
+      label: 'Reservar Mesa pro Fim de Semana',
+      text: 'Opa! Gostaria de reservar uma mesa para curtir o Coyote Bar.',
     },
     {
-      title: 'Instagram Oficial',
-      description: 'Acompanhe a programação semanal de bandas, promoções do dia e novidades.',
-      actionText: 'Seguir @coyotebar',
-      actionHref: 'https://instagram.com',
-      icon: <InstagramIcon />,
-      isAmber: false,
+      label: 'Comemorar Meu Aniversário',
+      text: 'Salve galera do Coyote! Quero comemorar meu aniversário aí com a tropa.',
     },
     {
-      title: 'Atendimento Direto',
-      description: 'Dúvidas sobre o cardápio, achados e perdidos ou parcerias comerciais.',
-      actionText: 'Ligar para o Pub',
-      actionHref: 'tel:+5541999999999',
-      icon: <CallOutlinedIcon />,
-      isAmber: false,
+      label: 'Almoço de Sábado (Feijoada)',
+      text: 'Olá! Gostaria de saber sobre o buffet de Feijoada deste sábado.',
     },
   ];
 
   return (
-    <section className={styles.channelsSection}>
-      <div className={styles.grid}>
-        {contactChannels.map((item) => (
-          <Card key={item.title} variant="default">
-            <div className={`${styles.iconWrapper} ${item.isAmber ? styles.iconAmber : ''}`}>
-              {item.icon}
-            </div>
-            <h3 className={styles.cardTitle}>{item.title}</h3>
-            <p className={styles.cardDescription}>{item.description}</p>
-            <Button
-              href={item.actionHref}
-              target="_blank"
-              variant={item.isAmber ? 'amber' : 'primary'}
-              icon={item.icon}
-              style={{ marginTop: 'auto' }}
-            >
-              {item.actionText}
-            </Button>
-          </Card>
-        ))}
-      </div>
+    <section className={styles.contactSection} aria-labelledby="contact-heading">
+      <div className={styles.container}>
+        {/* Cabeçalho Sem Badges */}
+        <div className={styles.header}>
+          <h1 id="contact-heading" className={styles.mainTitle}>
+            CHEGA JUNTO. <span className={styles.highlight}>O BALCÃO TÁ ABERTO.</span>
+          </h1>
+          <p className={styles.subtitle}>
+            Quer juntar a tropa, comemorar aniversário ou saber se tem mesa livre? É só mandar uma
+            mensagem ou aparecer.
+          </p>
+          <span className={styles.handwrittenHook}>
+            "aniversariante ganha brinde da casa com a galera!"
+          </span>
+        </div>
 
-      <Card variant="accent">
-        <div className={styles.infoCardGrid}>
-          <div className={styles.infoItem}>
-            <div className={styles.iconWrapper}>
-              <AccessTimeOutlinedIcon />
-            </div>
-            <div>
-              <h4 className={styles.cardTitle}>Horário de Funcionamento</h4>
-              <p className={styles.cardDescription} style={{ margin: 0 }}>
-                Terça a Domingo: 18:00 às 02:00
-              </p>
-            </div>
+        {/* Linha Principal de Contato (Número Gigante + Atalhos) */}
+        <div className={styles.primaryContactBlock}>
+          <div className={styles.phoneDisplayCol}>
+            <span className={styles.channelLabel}>
+              <PhoneInTalkOutlined fontSize="small" />
+              WHATSAPP & LIGAÇÃO DIRETA
+            </span>
+            <a
+              href={`https://wa.me/${WHATSAPP_PHONE}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.hugePhone}
+              aria-label={`Ligar ou mandar mensagem no WhatsApp para ${DISPLAY_PHONE}`}
+            >
+              {DISPLAY_PHONE}
+            </a>
+            <p className={styles.phoneSub}>
+              Fale direto com o balcão da Dona Ana. Atendimento ágil e sem enrolação.
+            </p>
           </div>
 
-          <div className={styles.infoItem}>
-            <div className={`${styles.iconWrapper} ${styles.iconAmber}`}>
-              <CalendarMonthOutlinedIcon />
-            </div>
-            <div>
-              <h4 className={styles.cardTitle}>Eventos & Aniversários</h4>
-              <p className={styles.cardDescription} style={{ margin: 0 }}>
-                Reserve com antecedência para condições especiais.
-              </p>
+          <div className={styles.quickTriggersCol}>
+            <span className={styles.triggersLabel}>O QUE VOCÊ PRECISA HOJE?</span>
+            <div className={styles.triggersList}>
+              {quickMessages.map((item, idx) => (
+                <a
+                  key={idx}
+                  href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(item.text)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.quickTriggerBtn}
+                  aria-label={item.label}
+                >
+                  <WhatsApp fontSize="small" />
+                  <span>{item.label}</span>
+                </a>
+              ))}
             </div>
           </div>
         </div>
-      </Card>
+
+        {/* Faixas Tipográficas de Informações Complementares */}
+        <div className={styles.infoLinesGroup}>
+          {/* Linha 1: Instagram */}
+          <div className={styles.infoLine}>
+            <div className={styles.infoIconBox}>
+              <Instagram fontSize="small" />
+            </div>
+            <div className={styles.infoContent}>
+              <span className={styles.infoTitle}>INSTAGRAM OFICIAL</span>
+              <a
+                href="https://instagram.com/coyotebarcwb"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.infoLink}
+                aria-label="Abrir perfil oficial @coyotebarcwb no Instagram"
+              >
+                @coyotebarcwb
+              </a>
+              <span className={styles.infoNote}>
+                "dá uma olhada nos stories pra ver quem tá no palco hoje"
+              </span>
+            </div>
+          </div>
+
+          {/* Linha 2: O Ponto / Endereço */}
+          <div className={styles.infoLine}>
+            <div className={styles.infoIconBox}>
+              <PlaceOutlined fontSize="small" />
+            </div>
+            <div className={styles.infoContent}>
+              <span className={styles.infoTitle}>O NOSSO PONTO NA CIC</span>
+              <span className={styles.infoText}>
+                R. Gastão de Abreu Pires, 210 • Cidade Industrial de Curitiba, PR
+              </span>
+              <a
+                href="https://maps.google.com/?q=Coyote+Bar+Curitiba"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.gpsLink}
+                aria-label="Abrir rota para o Coyote Bar no Google Maps"
+              >
+                <NearMeOutlined fontSize="inherit" />
+                <span>Abrir Rota no Google Maps</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Linha 3: Horários do Balcão */}
+          <div className={styles.infoLine}>
+            <div className={styles.infoIconBox}>
+              <AccessTimeOutlined fontSize="small" />
+            </div>
+            <div className={styles.infoContent}>
+              <span className={styles.infoTitle}>QUANDO O CHOPP TÁ TRINCANDO</span>
+              <div className={styles.hoursSchedule}>
+                <span>
+                  Terça a Quinta: <strong>18h às 00h</strong>
+                </span>
+                <span>
+                  Sexta & Sábado (Noite): <strong>18h às 02h</strong>
+                </span>
+                <span>
+                  Sábado (Almoço): <strong>11h30 às 15h00</strong>
+                </span>
+                <em>Segunda e Domingo: Descanso da tropa</em>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

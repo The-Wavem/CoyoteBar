@@ -41,7 +41,7 @@ export default function Footer() {
           </h3>
 
           <span className={styles.weddingChalk}>
-            "e sim, o único boteco do CIC que já comemorou 2 casamentos!"
+            "Aqui é Coyotada!!"
           </span>
         </div>
 

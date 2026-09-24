@@ -1,60 +1,235 @@
-.channelsSection {
-  width: 100%;
-  max-width: 1200px;
+.contactSection {
+  position: relative;
+  background: #090a0f;
+  padding: 80px 24px 120px;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 1rem 1.5rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  margin-bottom: 54px;
+}
+
+.mainTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+  color: var(--text-primary);
+  line-height: 0.95;
+  margin: 0 0 12px;
+  letter-spacing: 0.03em;
+}
+
+.highlight {
+  color: var(--accent-amber);
+  text-shadow: 0 0 30px rgba(245, 158, 11, 0.25);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+.handwrittenHook {
+  display: inline-block;
+  font-family: var(--font-handwritten);
+  font-size: 1.55rem;
+  color: var(--accent-amber-light);
+  transform: rotate(-1.5deg);
+}
+
+/* Bloco de Contato Principal */
+.primaryContactBlock {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 48px;
+  padding: 36px 0;
+  border-top: 1px dashed rgba(245, 185, 69, 0.2);
+  border-bottom: 1px dashed rgba(245, 185, 69, 0.2);
+  margin-bottom: 48px;
+  align-items: center;
+}
+
+.channelLabel,
+.triggersLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-amber);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.hugePhone {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 5vw, 4.4rem);
+  color: var(--text-primary);
+  text-decoration: none;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.hugePhone:hover {
+  color: var(--accent-amber-light);
+  transform: translateX(4px);
+}
+
+.phoneSub {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 12px 0 0;
+}
+
+/* Coluna de Gatilhos Rápidos do WhatsApp */
+.triggersList {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 12px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.iconWrapper {
-  width: 44px;
-  height: 44px;
+.quickTriggerBtn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  background: var(--brand-blue-glow);
-  color: var(--brand-blue-light);
-  margin-bottom: 1rem;
-}
-
-.iconAmber {
-  background: var(--accent-amber-glow);
-  color: var(--accent-amber);
-}
-
-.cardTitle {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 700;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  padding: 14px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
 }
 
-.cardDescription {
+.quickTriggerBtn:hover {
+  background: var(--accent-amber);
+  color: #090a0f;
+  border-color: var(--accent-amber);
+  transform: translateX(6px);
+}
+
+/* Faixas Complementares */
+.infoLinesGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.infoLine {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding-bottom: 24px;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.08);
+}
+
+.infoIconBox {
+  color: var(--accent-amber);
+  padding-top: 4px;
+}
+
+.infoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.infoTitle {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.infoLink {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.infoLink:hover {
+  color: var(--accent-amber-light);
+}
+
+.infoNote {
+  font-family: var(--font-handwritten);
+  font-size: 1.25rem;
+  color: var(--accent-amber-light);
+}
+
+.infoText {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+}
+
+.gpsLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-amber);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.gpsLink:hover {
+  text-decoration: underline;
+}
+
+.hoursSchedule {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   color: var(--text-secondary);
-  line-height: 1.5;
-  margin-bottom: 1.25rem;
-  flex: 1;
+  margin-top: 4px;
 }
 
-.infoCardGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+.hoursSchedule strong {
+  color: var(--text-primary);
 }
 
-.infoItem {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+.hoursSchedule em {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 860px) {
+  .primaryContactBlock {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hoursSchedule {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
