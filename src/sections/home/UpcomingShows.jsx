@@ -1,167 +1,170 @@
 import React from 'react';
-import CelebrationOutlinedIcon from '@mui/icons-material/CelebrationOutlined';
-import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import SportsBarOutlinedIcon from '@mui/icons-material/SportsBarOutlined';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import {
+  WhatsApp,
+  ConfirmationNumberOutlined,
+  PlaceOutlined,
+  AccessTimeOutlined,
+} from '@mui/icons-material';
 import styles from './UpcomingShows.module.css';
 
-const FEATURED_SHOW = {
-  dateMonth: 'OUT',
-  dateDay: '31',
-  dateWeekday: 'QUI',
-  title: 'HALLOWEEN DO COYOTE • ROCK & FANTASIA',
-  time: 'A partir das 19h00',
-  stage: 'Palco Principal',
-  perkTitle: 'Venha fantasiado e o 1º chopp é na faixa!',
-  handwrittenPerk: 'capricha na fantasia que a primeira caneca é por nossa conta!',
-  image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80',
-  whatsappMessage: 'Olá! Quero garantir minha mesa para o Halloween do Coyote (31/10)!',
-};
-
-const UPCOMING_LIST = [
+const SHOWS = [
   {
-    id: 1,
-    dateMonth: 'NOV',
-    dateDay: '14',
-    dateWeekday: 'SEX',
+    id: 'halloween',
+    badge: 'FESTA TEMÁTICA DA CASA',
+    title: 'HALLOWEEN DO COYOTE',
+    subtitle: 'ROCK, FANTASIA & LOUCURA',
+    date: '31 OUT',
+    dayOfWeek: 'QUINTA',
+    time: 'A partir das 19h00',
+    location: 'Palco Coyote • CIC',
+    description: 'A noite mais insana do ano com a casa decorada, clássicos do rock e chopp verde na torneira.',
+    stamp: 'FANTASIADO = 1º CHOPP GRÁTIS',
+    handwritten: 'capricha na fantasia que a primeira caneca é nossa!',
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
+    whatsappMessage: 'Fala galera do Coyote! Quero garantir mesa pro Halloween do Coyote.',
+  },
+  {
+    id: 'rock-nacional',
+    badge: 'SEXTA ACÚSTICA',
     title: 'NOITE DO ROCK & POP NACIONAL',
-    desc: 'Acústico ao vivo no palco com os clássicos dos anos 80, 90 e 2000.',
-    perk: 'Aquele som pra cantar junto com a caneca cheia',
-    whatsappMessage: 'Olá! Gostaria de reservar uma mesa para a Noite do Rock (14/11).',
+    subtitle: 'OS CLÁSSICOS DOS ANOS 80, 90 E 2000',
+    date: '14 NOV',
+    dayOfWeek: 'SEXTA-FEIRA',
+    time: 'A partir das 20h00',
+    location: 'Palco Principal',
+    description: 'Voz e violão rasgado no palco, porções na chapa e aquela energia pra cantar até ficar rouco.',
+    stamp: 'ENTRADA LIVRE',
+    handwritten: 'aquele pra cantar junto com a caneca cheia!',
+    featured: false,
+    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+    whatsappMessage: 'Salve! Quero reservar pro show de Rock Nacional no Coyote.',
   },
   {
-    id: 2,
-    dateMonth: 'NOV',
-    dateDay: '22',
-    dateWeekday: 'SÁB',
-    title: 'PAGODE & CHOPP ARTESANAL',
-    desc: 'Roda de samba e modão para reunir a galera e celebrar aniversários.',
-    perk: 'Aniversariante com reserva ganha brinde da casa!',
-    whatsappMessage: 'Olá! Quero reservar mesa para o Pagode de Sábado (22/11).',
-  },
-  {
-    id: 3,
-    dateMonth: 'DEZ',
-    dateDay: '05',
-    dateWeekday: 'SEX',
-    title: 'FESTIVAL DE CHOPP & MODÃO',
-    desc: 'Torneiras artesanais abertas, porções na chapa e modão raiz no palco.',
-    perk: 'Double de Chopp Pilsen até as 20h',
-    whatsappMessage: 'Olá! Quero reservar mesa para o Festival de Chopp (05/12).',
+    id: 'pagode-chopp',
+    badge: 'SÁBADO DA GALERA',
+    title: 'RODA DE PAGODE & CHOPP ARTESANAL',
+    subtitle: 'SAMBA, MODÃO & MESAS DE SINUCA',
+    date: '22 NOV',
+    dayOfWeek: 'SÁBADO',
+    time: 'A partir das 19h30',
+    location: 'Área Coberta & Sinuca',
+    description: 'Clima quente de boteco, mesa cheia de amigos e rodadas de chopp trincando.',
+    stamp: 'ANIVERSARIANTE VIP',
+    handwritten: 'traz o bolo que o brinde da mesa é por conta da casa!',
+    featured: false,
+    image: 'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=800&q=80',
+    whatsappMessage: 'Opa! Gostaria de reservar mesa pra comemorar aniversário no sábado do pagode.',
   },
 ];
 
 export default function UpcomingShows() {
   return (
-    <section className={styles.section} aria-labelledby="shows-heading">
+    <section className={styles.wallSection} aria-labelledby="shows-wall-heading">
+      {/* Tipografia de Fundo (Watermark de Rua) */}
+      <div className={styles.backgroundGraffiti} aria-hidden="true">
+        <span>AO VIVO // PALCO COYOTE // CIC</span>
+      </div>
+
       <div className={styles.container}>
-        {/* Header */}
-        <div className={styles.headerArea}>
-
-          <h2 id="shows-heading" className={styles.title}>
-            Próximos Shows & <span className={styles.highlight}>Noites Especiais</span>
+        <div className={styles.sectionHeader}>
+          <div className={styles.headerTag}>
+            <ConfirmationNumberOutlined fontSize="small" />
+            <span>MURAL DE ATRAÇÕES & DATAS ESPECIAIS</span>
+          </div>
+          <h2 id="shows-wall-heading" className={styles.sectionTitle}>
+            OS DIAS EM QUE A <span className={styles.highlight}>CASA FERVE</span>
           </h2>
-
-          <p className={styles.subtitle}>
-            Os dias em que a casa ferve, o som rola solto e a gente prepara algo com o coração pra quem cola junto. Escolha a data e venha viver a noite de perto.
+          <p className={styles.sectionSub}>
+            Cartazes colados na parede do bar: escolha a data, junte a tropa e reserve sua mesa direto no WhatsApp.
           </p>
         </div>
 
-        {/* Shows Grid */}
-        <div className={styles.showsGrid}>
-          {/* Featured Spotlight Card */}
-          <article className={styles.featuredCard}>
-            <div className={styles.featuredBg}>
-              <img
-                src={FEATURED_SHOW.image}
-                alt={FEATURED_SHOW.title}
-                className={styles.featuredImage}
-                loading="lazy"
-              />
-              <div className={styles.featuredOverlay} />
-            </div>
+        {/* Mural de Cartazes Sobrepostos (Lambe-Lambe Layout) */}
+        <div className={styles.postersWall}>
+          {/* Cartaz 1: Gigante em Destaque com Fita Crepe */}
+          <article className={`${styles.posterCard} ${styles.posterMain}`}>
+            <div className={styles.tapeTop} />
+            <div className={styles.tapeBottom} />
 
-            <div className={styles.featuredTop}>
-              <span className={styles.spotlightPill}>
-                <LocalActivityOutlinedIcon sx={{ fontSize: 15 }} />
-                <span>Destaque do Mês</span>
-              </span>
-
-              {/* Big Impact Date Block */}
-              <div className={styles.dateBlock} aria-label="Data do show: 31 de Outubro">
-                <span className={styles.dateMonth}>{FEATURED_SHOW.dateMonth}</span>
-                <span className={styles.dateDay}>{FEATURED_SHOW.dateDay}</span>
-                <span className={styles.dateWeekday}>{FEATURED_SHOW.dateWeekday}</span>
+            <div className={styles.posterVisual}>
+              <img src={SHOWS[0].image} alt={SHOWS[0].title} className={styles.posterImg} />
+              <div className={styles.posterDarkMask} />
+              <div className={styles.dateTagBig}>
+                <span className={styles.dateDay}>{SHOWS[0].date}</span>
+                <span className={styles.dateWeek}>{SHOWS[0].dayOfWeek}</span>
               </div>
+              <span className={styles.stampHot}>{SHOWS[0].stamp}</span>
             </div>
 
-            <div className={styles.featuredBottom}>
-              <div className={styles.featuredMeta}>
-                <span className={styles.featuredMetaItem}>
-                  <AccessTimeOutlinedIcon sx={{ fontSize: 15 }} />
-                  {FEATURED_SHOW.time}
+            <div className={styles.posterContent}>
+              <span className={styles.badgeLine}>{SHOWS[0].badge}</span>
+              <h3 className={styles.mainTitle}>{SHOWS[0].title}</h3>
+              <h4 className={styles.mainSubtitle}>{SHOWS[0].subtitle}</h4>
+              <p className={styles.mainDesc}>{SHOWS[0].description}</p>
+
+              <div className={styles.metaRow}>
+                <span>
+                  <AccessTimeOutlined fontSize="inherit" /> {SHOWS[0].time}
                 </span>
-                <span>•</span>
-                <span>{FEATURED_SHOW.stage}</span>
-                <span>•</span>
-                <span>Entrada Livre</span>
+                <span>
+                  <PlaceOutlined fontSize="inherit" /> {SHOWS[0].location}
+                </span>
               </div>
 
-              <h3 className={styles.featuredTitle}>{FEATURED_SHOW.title}</h3>
-
-              {/* Heart of the pub perk */}
-              <div className={styles.perkBox}>
-                <div className={styles.perkTitle}>
-                  <SportsBarOutlinedIcon sx={{ fontSize: 18, color: 'var(--accent-amber)' }} />
-                  <span>{FEATURED_SHOW.perkTitle}</span>
-                </div>
-                <p className={styles.handwrittenPerk}>
-                  "{FEATURED_SHOW.handwrittenPerk}"
-                </p>
-              </div>
+              <p className={styles.handwrittenNote}>"{SHOWS[0].handwritten}"</p>
 
               <a
-                href={`https://wa.me/5541997683925?text=${encodeURIComponent(FEATURED_SHOW.whatsappMessage)}`}
+                href={`https://wa.me/5541997683925?text=${encodeURIComponent(SHOWS[0].whatsappMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.whatsappBtnPrimary}
+                className={styles.actionBtnLarge}
               >
-                <WhatsAppIcon sx={{ fontSize: 20 }} />
-                <span>Garantir Mesa no WhatsApp</span>
+                <WhatsApp fontSize="small" />
+                <span>GARANTIR MESA / BANCADA</span>
               </a>
             </div>
           </article>
 
-          {/* Secondary Upcoming Shows Column */}
-          <div className={styles.secondaryCol}>
-            {UPCOMING_LIST.map((show) => (
-              <div key={show.id} className={styles.showRow}>
-                {/* Compact Date Block */}
-                <div className={styles.dateBlockSmall}>
-                  <span className={styles.dateMonth}>{show.dateMonth}</span>
-                  <span className={styles.dateDay}>{show.dateDay}</span>
-                  <span className={styles.dateWeekday}>{show.dateWeekday}</span>
+          {/* Coluna dos Cartazes Secundários Sobrepostos */}
+          <div className={styles.secondaryPostersCol}>
+            {SHOWS.slice(1).map((show, idx) => (
+              <article
+                key={show.id}
+                className={`${styles.posterCard} ${styles.posterSecondary} ${
+                  idx === 0 ? styles.tiltRight : styles.tiltLeft
+                }`}
+              >
+                <div className={styles.tapeCorner} />
+
+                <div className={styles.secondaryHeader}>
+                  <div className={styles.dateBadgeSmall}>
+                    <span className={styles.dateSmallNumber}>{show.date.split(' ')[0]}</span>
+                    <span className={styles.dateSmallMonth}>{show.date.split(' ')[1]}</span>
+                  </div>
+                  <div className={styles.secondaryTitleBox}>
+                    <span className={styles.secondaryBadge}>{show.badge}</span>
+                    <h3 className={styles.secondaryTitle}>{show.title}</h3>
+                    <p className={styles.secondarySubtitle}>{show.subtitle}</p>
+                  </div>
                 </div>
 
-                <div className={styles.showInfo}>
-                  <h4 className={styles.showTitle}>{show.title}</h4>
-                  <p className={styles.showDesc}>{show.desc}</p>
-                  <span className={styles.showPerk}>"{show.perk}"</span>
-                </div>
+                <p className={styles.secondaryDesc}>{show.description}</p>
+                <span className={styles.secondaryHandwritten}>"{show.handwritten}"</span>
 
-                <a
-                  href={`https://wa.me/5541997683925?text=${encodeURIComponent(show.whatsappMessage)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.reserveBtnOutline}
-                >
-                  <WhatsAppIcon sx={{ fontSize: 16 }} />
-                  <span>Reservar</span>
-                  <ArrowForwardOutlinedIcon sx={{ fontSize: 14 }} />
-                </a>
-              </div>
+                <div className={styles.secondaryFooter}>
+                  <span className={styles.secondaryStamp}>{show.stamp}</span>
+                  <a
+                    href={`https://wa.me/5541997683925?text=${encodeURIComponent(show.whatsappMessage)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.secondaryBtn}
+                  >
+                    <WhatsApp fontSize="inherit" />
+                    <span>Reservar Mesa</span>
+                  </a>
+                </div>
+              </article>
             ))}
           </div>
         </div>
