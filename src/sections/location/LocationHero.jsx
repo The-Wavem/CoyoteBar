@@ -15,7 +15,7 @@ export default function LocationHero() {
       <h1 className={styles.title}>Venha Viver a Experiência Coyote</h1>
 
       <p className={styles.subtitle}>
-        Localizado no coração da CIC em Curitiba. O pub ideal para reunir amigos, jogar uma partida de sinuca e tomar um chopp gelado.
+        Localizado no coração do CIC em Curitiba. O pub ideal para reunir amigos, jogar uma partida de sinuca e tomar um chopp gelado.
       </p>
 
       <div className={styles.actions}>

@@ -11,7 +11,7 @@ import styles from './DayNightExperience.module.css';
 
 const EXPERIENCES = {
   day: {
-    badge: 'Tradição do Meio-Dia na CIC',
+    badge: 'Tradição do Meio-Dia no CIC',
     badgeIcon: <RestaurantOutlinedIcon sx={{ fontSize: 16 }} />,
     title: 'Comida caseira farta, do jeito que o curitibano gosta.',
     description:

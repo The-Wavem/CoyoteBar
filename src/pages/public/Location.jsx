@@ -1,12 +1,14 @@
 import React from 'react';
-import LocationHero from '@sections/location/LocationHero';
-import LocationDetails from '@sections/location/LocationDetails';
+import BarStory from '@sections/location/BarStory';
+import BarAtmosphere from '@sections/location/BarAtmosphere';
+import InstagramFeed from '@sections/location/InstagramFeed';
 
 export default function Location() {
   return (
-    <>
-      <LocationHero />
-      <LocationDetails />
-    </>
+    <main>
+      <BarStory />
+      <BarAtmosphere />
+      <InstagramFeed />
+    </main>
   );
 }

@@ -1,0 +1,253 @@
+.section {
+  position: relative;
+  background-color: var(--bg-primary);
+  padding: 100px 24px 80px;
+  overflow: hidden;
+}
+
+.topGlow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  max-width: 100%;
+  height: 300px;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(245, 185, 69, 0.15) 0%,
+    rgba(232, 158, 36, 0.05) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header & Manifesto */
+.headerBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 860px;
+  margin: 0 auto 60px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(245, 185, 69, 0.08);
+  border: 1px solid rgba(245, 185, 69, 0.22);
+  border-radius: var(--radius-full);
+  color: var(--accent-amber-light);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.titleAccent {
+  color: var(--accent-amber);
+}
+
+.subtitle {
+  font-family: var(--font-handwritten);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  color: var(--accent-amber-light);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Content Grid */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+
+/* Coluna de Texto Narrativo */
+.narrativeCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.leadParagraph {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  font-weight: 500;
+  margin: 0;
+}
+
+.leadParagraph strong {
+  color: var(--accent-amber-light);
+}
+
+.bodyParagraph {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Destaque com Fita Adesiva e Carimbo dos Casamentos */
+.weddingNoteBox {
+  position: relative;
+  margin-top: 16px;
+  padding: 28px 24px 24px;
+  background: linear-gradient(
+    145deg,
+    rgba(38, 34, 28, 0.9) 0%,
+    rgba(22, 20, 16, 0.95) 100%
+  );
+  border: 1px dashed rgba(245, 185, 69, 0.35);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.tapeTop {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 120px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(2px);
+  border-left: 2px dashed rgba(255, 255, 255, 0.4);
+  border-right: 2px dashed rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.stampBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border: 1.5px dashed var(--accent-amber);
+  border-radius: var(--radius-sm);
+  color: var(--accent-amber-light);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  transform: rotate(-1deg);
+  margin-bottom: 12px;
+}
+
+.weddingText {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.weddingQuote {
+  font-family: var(--font-handwritten);
+  font-size: 1.35rem;
+  color: var(--accent-amber-light);
+  display: block;
+  margin-top: 10px;
+}
+
+/* Coluna Visual (Foto Rústica de Boteco) */
+.visualCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.photoFrame {
+  position: relative;
+  background: #1e1b15;
+  padding: 14px 14px 22px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(245, 185, 69, 0.2);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  transform: rotate(1.2deg);
+  transition: transform var(--transition-normal);
+  max-width: 440px;
+  width: 100%;
+}
+
+.photoFrame:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.photoImage {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  filter: contrast(1.04) brightness(0.95);
+}
+
+.photoCaption {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.photoHandwritten {
+  font-family: var(--font-handwritten);
+  font-size: 1.4rem;
+  color: var(--accent-amber-light);
+  line-height: 1.2;
+}
+
+.photoLocation {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .section {
+    padding: 72px 20px 60px;
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .headerBlock {
+    margin-bottom: 40px;
+  }
+
+  .photoFrame {
+    max-width: 100%;
+  }
+
+  .photoImage {
+    height: 300px;
+  }
+}

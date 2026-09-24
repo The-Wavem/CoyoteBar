@@ -75,7 +75,7 @@ export default function Hero() {
       {/* Floating Content */}
       <div className={styles.heroContent}>
         {/* Handwritten Annotation in Caveat */}
-        <span className={styles.handwrittenBadge}>o autêntico boteco da CIC</span>
+        <span className={styles.handwrittenBadge}>o autêntico boteco do CIC</span>
 
         <h1 className={styles.mainTitle}>
           Onde cada brinde vira história e{' '}

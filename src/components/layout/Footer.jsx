@@ -1,121 +1,131 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import MusicNoteOutlinedIcon from "@mui/icons-material/MusicNoteOutlined";
-import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
-import FamilyRestroomOutlinedIcon from "@mui/icons-material/FamilyRestroomOutlined";
-import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
-import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import {
+  PlaceOutlined,
+  AccessTimeOutlined,
+  WhatsApp,
+  Instagram,
+  Facebook,
+  LockOutlined,
+  RestaurantMenuOutlined,
+} from "@mui/icons-material";
 import CoyoteLogo from "../common/CoyoteLogo";
+import mapsIcon from '../../assets/icons/maps.png';
 import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
+      {/* Brilho quente de filamento/marquise */}
+      <div className={styles.ambientGlow} />
+
       <div className={styles.container}>
-        <div className={styles.grid}>
-          {/* Column 1: Identity */}
-          <div className={styles.column}>
-            <Link to="/" className={styles.brandHeader}>
-              <CoyoteLogo size={40} />
-              <span className={styles.brandName}>
+        {/* Top Section - Identidade & Manifesto */}
+        <div className={styles.topSection}>
+          <Link
+            to="/"
+            className={styles.brandRow}
+            aria-label="Coyote Bar - Início"
+          >
+            <CoyoteLogo size={44} />
+            <div className={styles.brandTextBox}>
+              <span className={styles.brandTitle}>
                 COYOTE <span className={styles.brandAccent}>BAR</span>
               </span>
-            </Link>
-            <p className={styles.slogan}>
-              Since 2017 — Servindo mais que bebidas, servindo memórias. O pub
-              acolhedor da CIC para reunir amigos, curtir boa música e
-              aproveitar os melhores momentos.
-            </p>
-            <div className={styles.vibePills}>
-              <span className={styles.pill}>
-                <MusicNoteOutlinedIcon sx={{ fontSize: 14 }} />
-                Música ao Vivo
-              </span>
-              <span className={styles.pill}>
-                <SportsEsportsOutlinedIcon sx={{ fontSize: 14 }} />
-                Sinuca
-              </span>
-              <span className={styles.pill}>
-                <FamilyRestroomOutlinedIcon sx={{ fontSize: 14 }} />
-                Ambiente Familiar
-              </span>
+              <span className={styles.brandTag}>DESDE 2017 • CIC</span>
             </div>
+          </Link>
+
+          <h3 className={styles.manifestoTitle}>
+            SERVINDO MAIS QUE BEBIDAS. SERVINDO MEMÓRIAS.
+          </h3>
+
+          <span className={styles.weddingChalk}>
+            "e sim, o único boteco do CIC que já comemorou 2 casamentos!"
+          </span>
+        </div>
+
+        {/* Main Grid - O Balcão em 3 Colunas */}
+        <div className={styles.mainGrid}>
+          {/* Coluna 1: O Ponto */}
+          <div className={styles.column}>
+            <h4 className={styles.columnHeader}>
+              <PlaceOutlined className={styles.columnHeaderIcon} />
+              <span>O PONTO</span>
+            </h4>
+            <div className={styles.addressBox}>
+              <p className={styles.addressStreet}>
+                R. Gastão de Abreu Pires, 210
+              </p>
+              <p className={styles.addressDetail}>
+                Cidade Industrial de Curitiba (CIC)
+                <br />
+                Curitiba - PR • CEP 81312-050
+              </p>
+            </div>
+            <a
+              href="https://maps.google.com/?q=R.+Gastão+de+Abreu+Pires,+210+-+CIC,+Curitiba+-+PR"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.mapBtn}
+              aria-label="Abrir localização do Coyote Bar no Google Maps"
+            >
+              <img src={mapsIcon} alt="" className={styles.mapIcon} aria-hidden="true" />
+              <span>COMO CHEGAR NO BAR</span>
+            </a>
           </div>
 
-          {/* Column 2: Navigation */}
+          {/* Coluna 2: Horários do Balcão */}
           <div className={styles.column}>
-            <h4 className={styles.columnTitle}>Navegação</h4>
-            <ul className={styles.linksList}>
-              <li>
-                <Link to="/" className={styles.footerLink}>
-                  Início
-                </Link>
+            <h4 className={styles.columnHeader}>
+              <AccessTimeOutlined className={styles.columnHeaderIcon} />
+              <span>QUANDO O BALCÃO ABRE</span>
+            </h4>
+            <ul className={styles.hoursList}>
+              <li className={styles.hourRow}>
+                <span className={styles.hourDay}>Terça a Quinta</span>
+                <span className={styles.hourTime}>18:00 às 00:00</span>
               </li>
-              <li>
-                <Link to="/cardapio" className={styles.footerLink}>
-                  Cardápio Digital
-                </Link>
+              <li className={styles.hourRow}>
+                <span className={styles.hourDay}>Sexta & Sábado</span>
+                <span className={styles.hourTime}>18:00 às 02:00</span>
               </li>
-              <li>
-                <Link to="/local" className={styles.footerLink}>
-                  Local & Ambiente
-                </Link>
+              <li className={styles.hourRow}>
+                <span className={styles.hourDay}>
+                  Sábado (Almoço)
+                  <span className={styles.hourNote}>Feijoada Completa</span>
+                </span>
+                <span className={styles.hourTime}>11:30 às 15:00</span>
               </li>
-              <li>
-                <Link to="/contato" className={styles.footerLink}>
-                  Contato & Reservas
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/admin"
-                  className={`${styles.footerLink} ${styles.adminLink}`}
-                >
-                  <LockOutlinedIcon sx={{ fontSize: 14 }} />
-                  Área Administrativa
-                </Link>
+              <li className={styles.hourRow}>
+                <span className={styles.hourDay}>Domingo & Segunda</span>
+                <span className={styles.hourTime}>Folga da casa</span>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Location & Hours */}
+          {/* Coluna 3: Falar com a Casa & Zap */}
           <div className={styles.column}>
-            <h4 className={styles.columnTitle}>Onde Estamos</h4>
-            <div className={styles.infoItem}>
-              <PlaceOutlinedIcon fontSize="small" className={styles.infoIcon} />
-              <span>R. Gastão de Abreu Pires, 210 - CIC, Curitiba - PR</span>
-            </div>
-
-            <div className={styles.infoItem}>
-              <AccessTimeOutlinedIcon
-                fontSize="small"
-                className={styles.infoIcon}
-              />
-              <div>
-                <strong>Terça a Domingo:</strong>
-                <div>18:00 às 02:00</div>
-              </div>
-            </div>
-
-            <div className={styles.statusIndicator}>
-              <span className={styles.statusDot} />
-              <span className={styles.statusText}>
-                Aberto hoje a partir das 18h
-              </span>
-            </div>
-          </div>
-
-          {/* Column 4: Social & WhatsApp */}
-          <div className={styles.column}>
-            <h4 className={styles.columnTitle}>Conecte-se</h4>
-            <p style={{ fontSize: "0.875rem", lineHeight: 1.5 }}>
-              Acompanhe as novidades e converse diretamente com a nossa equipe.
+            <h4 className={styles.columnHeader}>
+              <WhatsApp className={styles.columnHeaderIcon} />
+              <span>RESERVAR & TROCAR UMA IDEIA</span>
+            </h4>
+            <p className={styles.contactDesc}>
+              Comemorar aniversário, juntar a galera pro show ou pedir marmitex?
+              Chama a Dona Ana direto no balcão digital.
             </p>
-            <div className={styles.socialRow}>
+            <a
+              href="https://wa.me/5541997683925?text=Ol%C3%A1!%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Coyote%20Bar."
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.whatsAppBtn}
+              aria-label="Conversar com a Dona Ana no WhatsApp"
+            >
+              <WhatsApp sx={{ fontSize: 20 }} />
+              <span>FALAR NO WHATSAPP</span>
+            </a>
+
+            <div className={styles.socialIconsRow}>
               <a
                 href="https://instagram.com/coyotebarcwb"
                 target="_blank"
@@ -123,7 +133,7 @@ export default function Footer() {
                 className={styles.socialBtn}
                 aria-label="Instagram do Coyote Bar"
               >
-                <InstagramIcon fontSize="small" />
+                <Instagram fontSize="small" />
               </a>
               <a
                 href="https://facebook.com"
@@ -132,29 +142,31 @@ export default function Footer() {
                 className={styles.socialBtn}
                 aria-label="Facebook do Coyote Bar"
               >
-                <FacebookIcon fontSize="small" />
+                <Facebook fontSize="small" />
               </a>
-              <a
-                href="https://wa.me/5541997683925"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${styles.socialBtn} ${styles.socialBtnWhatsApp}`}
-                aria-label="WhatsApp do Coyote Bar"
-              >
-                <WhatsAppIcon fontSize="small" />
-              </a>
+            </div>
+
+            <div className={styles.extraLinks}>
+              <Link to="/cardapio" className={styles.extraLink}>
+                <RestaurantMenuOutlined sx={{ fontSize: 14 }} />
+                <span>Cardápio Digital</span>
+              </Link>
+              <Link to="/admin" className={styles.extraLink}>
+                <LockOutlined sx={{ fontSize: 14 }} />
+                <span>Área Admin</span>
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Bottom Copyright Bar */}
+        {/* Bottom Bar: Copyright & Assinatura Wavem */}
         <div className={styles.bottomBar}>
-          <span>
-            &copy; {new Date().getFullYear()} Coyote Bar. Todos os direitos
-            reservados.
-          </span>
-          <span>
-            Desenvolvido com carinho por{" "}
+          <p className={styles.copyright}>
+            &copy; {new Date().getFullYear()} Coyote Bar. O autêntico boteco da
+            CIC.
+          </p>
+          <div className={styles.wavemSignature}>
+            <span>Desenvolvido com alma curitibana por</span>
             <a
               href="https://thewavem.web.app"
               target="_blank"
@@ -164,7 +176,7 @@ export default function Footer() {
               Wavem
             </a>
             .
-          </span>
+          </div>
         </div>
       </div>
     </footer>

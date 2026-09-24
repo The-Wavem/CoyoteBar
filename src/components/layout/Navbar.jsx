@@ -1,121 +1,123 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, NavLink } from 'react-router-dom';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
-import RestaurantMenuOutlinedIcon from '@mui/icons-material/RestaurantMenuOutlined';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { NavLink, Link } from 'react-router-dom';
+import {
+  HomeOutlined,
+  PlaceOutlined,
+  PhoneOutlined,
+  RestaurantMenuOutlined,
+  MenuOutlined,
+  CloseOutlined,
+} from '@mui/icons-material';
 import CoyoteLogo from '../common/CoyoteLogo';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
-  const closeMenu = () => setIsMenuOpen(false);
-
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [isMenuOpen]);
 
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
     <header className={styles.header}>
+      {/* Linha luminosa quente de marquise */}
+      <div className={styles.topLightBeam} />
+
       <div className={styles.container}>
-        {/* Brand */}
-        <Link to="/" className={styles.brand} onClick={closeMenu} aria-label="Coyote Bar - Início">
-          <CoyoteLogo size={54} animated />
+        {/* Logo & Marca */}
+        <Link className={styles.brand} onClick={closeMenu} to="/" aria-label="Coyote Bar - Início">
+          <CoyoteLogo size={36} animated />
+          <div className={styles.brandTextBox}>
+            <span className={styles.brandTitle}>
+              COYOTE <span className={styles.brandAccent}>BAR</span>
+            </span>
+            <span className={styles.brandTag}>DESDE 2017 • CIC</span>
+          </div>
         </Link>
 
-        {/* Desktop Navigation (Direct Links) */}
+        {/* Navegação Desktop */}
         <nav className={styles.desktopNav} aria-label="Navegação Principal">
           <NavLink
             to="/"
             end
             className={({ isActive }) =>
-              isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
+              isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink
             }
           >
-            <HomeOutlinedIcon fontSize="small" />
-            Início
+            <HomeOutlined fontSize="small" />
+            <span>INÍCIO</span>
           </NavLink>
           <NavLink
             to="/local"
             className={({ isActive }) =>
-              isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
+              isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink
             }
           >
-            <PlaceOutlinedIcon fontSize="small" />
-            Local
+            <PlaceOutlined fontSize="small" />
+            <span>O BAR</span>
           </NavLink>
           <NavLink
             to="/contato"
             className={({ isActive }) =>
-              isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
+              isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink
             }
           >
-            <PhoneOutlinedIcon fontSize="small" />
-            Contato
+            <PhoneOutlined fontSize="small" />
+            <span>CONTATO</span>
           </NavLink>
-          <NavLink
-            to="/cardapio"
-            className={styles.menuCtaButton}
-          >
-            <RestaurantMenuOutlinedIcon fontSize="small" />
-            Cardápio
+
+          {/* CTA Estilo Comanda de Bar */}
+          <NavLink className={styles.menuTabCta} to="/cardapio">
+            <RestaurantMenuOutlined fontSize="small" />
+            <span>CARDÁPIO DIGITAL</span>
           </NavLink>
         </nav>
 
-        {/* Mobile Toggle Button */}
+        {/* Botão Mobile Hamburguer */}
         <button
           type="button"
-          className={styles.mobileToggleButton}
-          onClick={toggleMenu}
-          aria-label="Abrir menu de navegação"
+          className={styles.mobileMenuBtn}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
         >
-          <MenuOutlinedIcon />
+          {isMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
         </button>
       </div>
 
-      {/* Render Backdrop & Modal Drawer via Portal directly to body */}
+      {/* Render Backdrop & Modal Drawer via Portal to escape header backdrop-filter constraints */}
       {isMenuOpen &&
         typeof document !== 'undefined' &&
         createPortal(
-          <div className={styles.portalWrapper}>
-            {/* Dark Blur Backdrop - covers the entire screen, dims and blurs background */}
-            <div
-              className={styles.backdrop}
-              onClick={closeMenu}
-              aria-hidden="true"
-            />
+          <>
+            {/* Backdrop escuro com blur */}
+            <div className={styles.backdrop} onClick={closeMenu} aria-hidden="true" />
 
-            {/* Completely Solid, High-Contrast Elevated Drawer */}
+            {/* Drawer Lateral Mobile com Cara de Boteco */}
             <aside
-              className={styles.mobileDrawer}
+              className={`${styles.mobileDrawer} ${isMenuOpen ? styles.drawerOpen : ''}`}
               aria-label="Menu Lateral de Navegação"
             >
-              <div className={styles.drawerHeader}>
+              <div className={styles.drawerTop}>
                 <div className={styles.drawerBrand}>
-                  <CoyoteLogo size={38} />
-                  <span>
-                    COYOTE <span className={styles.brandHighlight}>BAR</span>
-                  </span>
+                  <CoyoteLogo size={42} />
+                  <div>
+                    <span className={styles.drawerBrandName}>COYOTE BAR</span>
+                    <span className={styles.drawerHandwritten}>"chega mais, puxa uma cadeira!"</span>
+                  </div>
                 </div>
                 <button
                   type="button"
-                  className={styles.closeButton}
+                  className={styles.drawerCloseBtn}
                   onClick={closeMenu}
-                  aria-label="Fechar menu"
+                  aria-label="Fechar menu lateral"
                 >
-                  <CloseOutlinedIcon />
+                  <CloseOutlined />
                 </button>
               </div>
 
@@ -125,62 +127,50 @@ export default function Navbar() {
                   end
                   onClick={closeMenu}
                   className={({ isActive }) =>
-                    isActive
-                      ? `${styles.drawerLink} ${styles.drawerActive}`
-                      : styles.drawerLink
+                    isActive ? `${styles.drawerItem} ${styles.drawerActive}` : styles.drawerItem
                   }
                 >
-                  <HomeOutlinedIcon />
-                  <span>Início</span>
+                  <HomeOutlined />
+                  <span>INÍCIO & ATRAÇÕES</span>
                 </NavLink>
-
                 <NavLink
                   to="/local"
                   onClick={closeMenu}
                   className={({ isActive }) =>
-                    isActive
-                      ? `${styles.drawerLink} ${styles.drawerActive}`
-                      : styles.drawerLink
+                    isActive ? `${styles.drawerItem} ${styles.drawerActive}` : styles.drawerItem
                   }
                 >
-                  <PlaceOutlinedIcon />
-                  <span>Local & Ambiente</span>
+                  <PlaceOutlined />
+                  <span>ONDE ESTAMOS & AMBIENTE</span>
                 </NavLink>
-
                 <NavLink
                   to="/contato"
                   onClick={closeMenu}
                   className={({ isActive }) =>
-                    isActive
-                      ? `${styles.drawerLink} ${styles.drawerActive}`
-                      : styles.drawerLink
+                    isActive ? `${styles.drawerItem} ${styles.drawerActive}` : styles.drawerItem
                   }
                 >
-                  <PhoneOutlinedIcon />
-                  <span>Contato & Reservas</span>
+                  <PhoneOutlined />
+                  <span>HORÁRIOS & RESERVAS</span>
                 </NavLink>
-
                 <NavLink
                   to="/cardapio"
                   onClick={closeMenu}
-                  className={styles.drawerCtaButton}
+                  className={styles.drawerCtaCardapio}
                 >
-                  <RestaurantMenuOutlinedIcon />
-                  <span>Cardápio Completo</span>
+                  <RestaurantMenuOutlined />
+                  <span>ABRIR CARDÁPIO DA MESA</span>
                 </NavLink>
               </nav>
 
-              <div className={styles.drawerFooter}>
-                <p className={styles.drawerAddress}>
-                  R. Gastão de Abreu Pires, 210 • CIC
-                </p>
+              <div className={styles.drawerBottom}>
+                <p className={styles.drawerAddress}>R. Gastão de Abreu Pires, 210 • CIC</p>
                 <span className={styles.drawerStatus}>
-                  <span className={styles.statusDot} />
-                  Aberto hoje a partir das 18h
+                  A chapa tá quente e o chopp tá trincando.
                 </span>
               </div>
             </aside>
-          </div>,
+          </>,
           document.body
         )}
     </header>

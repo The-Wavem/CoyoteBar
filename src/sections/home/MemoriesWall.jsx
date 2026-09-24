@@ -18,7 +18,7 @@ const POLAROIDS = [
   {
     id: 2,
     rotationClass: styles.rotateRight,
-    note: 'Final do campeonato de sinuca da CIC',
+    note: 'Final do campeonato de sinuca do CIC',
     tag: 'Mesa de Bilhar',
     date: 'Quinta dos amigos',
     image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80',
@@ -81,7 +81,7 @@ export default function MemoriesWall() {
             </p>
 
             <p className={styles.sectionSubtitle}>
-              O Coyote não é apenas um endereço na CIC; é onde os amigos se reúnem em volta de mesas de madeira rústica, os copos americanos suam com chopp trincando e os abraços são de verdade.
+              O Coyote não é apenas um endereço no CIC; é onde os amigos se reúnem em volta de mesas de madeira rústica, os copos americanos suam com chopp trincando e os abraços são de verdade.
             </p>
 
             {/* Irreverent Wedding Callout with Handwritten Badge */}
@@ -128,12 +128,9 @@ export default function MemoriesWall() {
         {/* Tradition Carimbo Stamp Banner */}
         <div className={styles.heritageBanner}>
           <div className={styles.heritageLeft}>
-            <div className={styles.sealIconCircle}>
-              <CelebrationOutlinedIcon sx={{ fontSize: 28 }} />
-            </div>
             <div>
               <h3 className={styles.heritageTitle}>
-                8 Anos de Tradição na CIC • Fundado em 2017
+                8 Anos de Tradição no CIC • Fundado em 2017
               </h3>
               <p className={styles.heritageSubtitle}>
                 Histórias reais, amizades duradouras e o sabor autêntico de Curitiba.

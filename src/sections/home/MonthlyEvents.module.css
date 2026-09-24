@@ -1,398 +1,353 @@
-.section {
+.calendarSection {
   position: relative;
-  width: 100%;
-  background-color: var(--bg-primary);
-  padding: 6rem 1.5rem 6.5rem;
+  background: #090a0e;
+  padding: 90px 24px;
   overflow: hidden;
+  border-bottom: 1px dashed rgba(245, 185, 69, 0.15);
 }
 
-/* Ambient Diffuse Amber Light at Top Right */
-.section::before {
-  content: '';
-  position: absolute;
-  top: 5%;
-  right: -5%;
-  width: 650px;
-  height: 450px;
-  background: radial-gradient(ellipse at center, rgba(232, 158, 36, 0.08) 0%, transparent 70%);
-  pointer-events: none;
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
   z-index: 1;
 }
 
-/* Header */
-.header {
-  position: relative;
-  z-index: 2;
-  max-width: 1240px;
-  margin: 0 auto 3.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.15rem;
+.sectionHeader {
+  margin-bottom: 36px;
 }
 
-.badgeLine {
+.tagLine {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.45rem 1.15rem;
-  border-radius: var(--radius-full);
-  background: rgba(232, 158, 36, 0.09);
-  border: 1px solid rgba(232, 158, 36, 0.3);
-  color: var(--accent-amber-light);
+  gap: 8px;
   font-family: var(--font-body);
-  font-size: 0.825rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.badgeIcon {
   color: var(--accent-amber);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
 .title {
   font-family: var(--font-heading);
   font-size: clamp(2.4rem, 5vw, 4rem);
-  font-weight: 400;
-  text-transform: uppercase;
-  color: #ffffff;
-  line-height: 1.05;
-  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  line-height: 0.95;
+  margin: 0 0 10px;
+  letter-spacing: 0.03em;
 }
 
 .highlight {
-  background: linear-gradient(135deg, var(--accent-amber) 0%, var(--accent-amber-light) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline;
+  color: var(--accent-amber);
+  text-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
 }
 
 .subtitle {
-  font-size: clamp(1rem, 1.8vw, 1.15rem);
-  color: #b8b0a2;
-  line-height: 1.65;
-  max-width: 740px;
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 650px;
+  margin: 0;
 }
 
-/* Main Split Wrapper */
-.eventsWrapper {
-  position: relative;
-  z-index: 2;
-  max-width: 1240px;
-  margin: 0 auto;
+/* Régua de Dias */
+.daysTrack {
   display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: 2.5rem;
-  align-items: start;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 40px;
 }
 
-/* Left Column: Interactive List */
-.listCol {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.eventItem {
+.dayTab {
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-left: 3px solid transparent;
-  border-radius: 8px;
-  padding: 18px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 16px 14px;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
   outline: none;
 }
 
-.eventItem:hover {
-  background: rgba(232, 158, 36, 0.04);
-  border-color: rgba(232, 158, 36, 0.2);
-  border-left-color: var(--accent-amber-warm);
+.dayTab:hover {
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.eventItem:focus-visible {
+.dayTabActive {
+  background: rgba(232, 158, 36, 0.08);
   border-color: var(--accent-amber);
 }
 
-.eventItemActive {
-  background: rgba(232, 158, 36, 0.08);
-  border-color: rgba(232, 158, 36, 0.35);
-  border-left: 3px solid var(--accent-amber);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-}
-
-.itemHeader {
+.tabContent {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.65rem;
+  gap: 10px;
+  color: var(--text-secondary);
 }
 
-.itemDay {
-  font-family: var(--font-heading);
-  font-size: 1.35rem;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+.dayTabActive .tabContent {
   color: var(--accent-amber-light);
 }
 
-.itemTime {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.85rem;
-  color: #7d7568;
-  font-weight: 600;
+.tabIcon {
+  color: var(--text-muted);
 }
 
-.itemBody {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.iconCircle {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  background: rgba(232, 158, 36, 0.12);
-  border: 1px solid rgba(232, 158, 36, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.dayTabActive .tabIcon {
   color: var(--accent-amber);
-  flex-shrink: 0;
-  margin-top: 0.1rem;
 }
 
-.eventItemActive .iconCircle {
+.tabDay {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+}
+
+/* Barra de Progresso do Autoplay */
+.tabProgressBarTrack {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tabProgressBar {
+  height: 100%;
+  width: 0%;
   background: var(--accent-amber);
-  color: #090a0f;
-  box-shadow: 0 0 14px rgba(232, 158, 36, 0.4);
 }
 
-.itemInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  flex: 1;
+.tabProgressActive {
+  animation: progressFill 6s linear forwards;
 }
 
-.itemTitle {
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #fbf8f2;
+.tabProgressPaused {
+  animation-play-state: paused;
 }
 
-.itemDesc {
-  font-size: 0.875rem;
-  color: #b8b0a2;
-  line-height: 1.45;
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
 
-/* Right Column: Visual Stage */
-.stageCol {
-  position: sticky;
-  top: 100px;
-}
-
-.stageCard {
-  background: #1c1914;
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(232, 158, 36, 0.25);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+/* Canvas do Dia Ativo */
+.giantStage {
+  position: relative;
+  background: #121318;
+  border-radius: 8px;
+  padding: 40px 44px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: border-color 0.3s ease;
 }
 
-.stageCard:hover {
-  border-color: rgba(232, 158, 36, 0.4);
+.watermarkDay {
+  position: absolute;
+  bottom: -40px;
+  right: -20px;
+  font-family: var(--font-heading);
+  font-size: clamp(8rem, 18vw, 18rem);
+  color: rgba(255, 255, 255, 0.02);
+  line-height: 0.8;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: 0.05em;
+  z-index: 0;
 }
 
+.stageGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Frame da Foto */
 .imageFrame {
   position: relative;
-  width: 100%;
-  height: 320px;
+  height: 380px;
+  border-radius: 6px;
   overflow: hidden;
-  background-color: #0f0e0c;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  transform: rotate(-0.5deg);
 }
 
-.stageImage {
+.realPhoto {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
-  filter: contrast(1.05) saturate(1.05);
+  filter: contrast(1.08) brightness(0.9);
+  transition: transform 0.4s ease;
 }
 
-.stageCard:hover .stageImage {
-  transform: scale(1.04);
+.imageFrame:hover .realPhoto {
+  transform: scale(1.03);
 }
 
-.imageOverlay {
+.photoVignette {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(28, 25, 20, 0.15) 0%, rgba(28, 25, 20, 0.7) 65%, #1c1914 100%);
-  pointer-events: none;
+  background: linear-gradient(180deg, transparent 50%, rgba(9, 10, 14, 0.85) 100%);
 }
 
 .stampBadge {
   position: absolute;
   top: 16px;
   left: 16px;
+  background: #b91c1c;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 3px;
+  transform: rotate(-2deg);
+  border: 1px dashed rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 14px rgba(185, 28, 28, 0.5);
   z-index: 2;
-  padding: 0.4rem 0.95rem;
-  border-radius: var(--radius-full);
-  background: rgba(15, 14, 12, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(232, 158, 36, 0.4);
-  color: var(--accent-amber-light);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 
-.handwrittenStamp {
+.chalkAnnotation {
   position: absolute;
   bottom: 16px;
+  left: 18px;
   right: 18px;
   font-family: var(--font-handwritten);
-  font-size: 1.45rem;
-  font-weight: 700;
+  font-size: 1.4rem;
   color: var(--accent-amber-light);
-  transform: rotate(-3deg);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 12px rgba(245, 185, 69, 0.4);
+  transform: rotate(-1deg);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
   z-index: 2;
 }
 
-.stageDetails {
-  padding: 1.6rem 1.85rem 1.85rem;
+/* Coluna de Conteúdo */
+.infoColumn {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 
-.stageCategory {
+.metaBadgeRow {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.categoryBadge,
+.timeBadge {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 6px;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.categoryBadge {
   color: var(--accent-amber);
 }
 
-.categoryIcon {
-  color: var(--accent-amber);
-}
-
-.stageTitle {
-  font-family: var(--font-heading);
-  font-size: 1.95rem;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #ffffff;
-  line-height: 1.1;
-}
-
-.highlightBox {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.8rem 1.1rem;
-  border-radius: var(--radius-sm);
-  background: rgba(232, 158, 36, 0.1);
-  border: 1.5px dashed rgba(232, 158, 36, 0.35);
-  color: #fff4db;
-  font-size: 0.95rem;
+.fullDayLabel {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
   font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
 }
 
-.offerIcon {
-  color: var(--accent-amber);
-  flex-shrink: 0;
+.dayMainTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  color: var(--text-primary);
+  line-height: 0.95;
+  margin: 0 0 16px;
+  letter-spacing: 0.03em;
 }
 
-.stageActions {
-  margin-top: 0.25rem;
+.dayDescription {
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 32px;
 }
 
-.reserveBtn {
+.stageFooter {
+  display: flex;
+}
+
+.actionButton {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  width: 100%;
-  padding: 0.95rem 1.75rem;
-  border-radius: var(--radius-full);
-  background: #25d366;
+  gap: 10px;
+  background: var(--accent-amber);
   color: #090a0f !important;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 800;
+  padding: 14px 28px;
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
   text-decoration: none;
-  transition: all var(--transition-fast);
-  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.28);
+  box-shadow: 0 6px 20px rgba(232, 158, 36, 0.3);
+  transition: all 0.2s ease;
 }
 
-.reserveBtn:hover {
-  background: #20ba5a;
+.actionButton:hover {
+  background: var(--accent-amber-light);
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.42);
 }
 
-/* Responsive */
+/* Responsividade Mobile */
 @media (max-width: 900px) {
-  .section {
-    padding: 4.5rem 1.25rem 5rem;
+  .calendarSection {
+    padding: 60px 16px;
   }
 
-  .eventsWrapper {
+  .daysTrack {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+
+  .daysTrack::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dayTab {
+    flex: 0 0 auto;
+    min-width: 140px;
+  }
+
+  .giantStage {
+    padding: 24px 16px;
+  }
+
+  .stageGrid {
     grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .stageCol {
-    position: static;
+    gap: 28px;
   }
 
   .imageFrame {
-    height: 260px;
+    height: 280px;
   }
 
-  .stageTitle {
-    font-size: 1.65rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .eventItem {
-    padding: 14px 16px;
-  }
-
-  .itemDay {
-    font-size: 1.15rem;
-  }
-
-  .itemTitle {
-    font-size: 1rem;
-  }
-
-  .handwrittenStamp {
-    font-size: 1.25rem;
-  }
-
-  .stageDetails {
-    padding: 1.25rem;
+  .watermarkDay {
+    display: none;
   }
 }

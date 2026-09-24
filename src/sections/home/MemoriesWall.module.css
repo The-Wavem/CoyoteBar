@@ -285,31 +285,14 @@
   gap: 2rem;
   padding: 1.85rem 2.25rem;
   border-radius: var(--radius-xl);
-  background: linear-gradient(135deg, rgba(28, 25, 20, 0.8) 0%, rgba(18, 16, 12, 0.95) 100%);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1.5px dashed rgba(232, 158, 36, 0.32);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 .heritageLeft {
   display: flex;
   align-items: center;
   gap: 1.25rem;
-}
-
-.sealIconCircle {
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-full);
-  background: rgba(232, 158, 36, 0.12);
-  border: 1.5px solid rgba(232, 158, 36, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent-amber-light);
-  flex-shrink: 0;
-  box-shadow: 0 0 16px var(--accent-filament-glow);
 }
 
 .heritageTitle {

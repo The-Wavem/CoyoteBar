@@ -9,7 +9,7 @@ import styles from './LocationDetails.module.css';
 export default function LocationDetails() {
   const highlights = [
     {
-      title: 'Localização na CIC',
+      title: 'Localização no CIC',
       description: 'R. Gastão de Abreu Pires, 210 - Cidade Industrial de Curitiba, PR. Ponto de fácil acesso na região.',
       icon: <PlaceOutlinedIcon />,
     },

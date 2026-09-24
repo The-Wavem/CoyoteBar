@@ -1,171 +1,209 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
-  DinnerDiningOutlined,
-  QueueMusicOutlined,
-  SportsBarOutlined,
   SoupKitchenOutlined,
-  WhatsApp,
+  QueueMusicOutlined,
+  DinnerDiningOutlined,
+  SportsBarOutlined,
   AccessTimeOutlined,
-  LocalOfferOutlined,
-  CelebrationOutlined,
+  WhatsApp,
+  CalendarMonthOutlined,
 } from '@mui/icons-material';
 import styles from './MonthlyEvents.module.css';
 
-const EVENTS_DATA = [
+const WEEKLY_DAYS = [
   {
-    id: 'feijoada',
-    day: 'Sábados ao Meio-Dia',
-    time: '11h30 às 15h00',
-    title: 'Feijoada Completa da Dona Ana',
-    category: 'Gastronomia & Tradição',
-    icon: DinnerDiningOutlined,
-    shortDesc: 'Buffet livre com carnes selecionadas, torresmo crocante, dobradinha e acompanhamentos.',
-    highlight: 'Buffet Livre R$ 29,90 por pessoa',
-    handwrittenNote: 'receita tradicional de família!',
-    badge: 'O Almoço Oficial do FDS',
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80',
-    whatsappMessage: 'Olá! Gostaria de reservar uma mesa para o almoço de Feijoada no Coyote Bar.',
-  },
-  {
-    id: 'happyhour',
-    day: 'Terça a Quinta',
-    time: 'A partir das 18h00',
-    title: 'Caldos Quentinhos & Chopp em Dobro',
-    category: 'Happy Hour & Aconchego',
+    id: 'terca-quinta',
+    dayShort: 'TER • QUI',
+    dayFull: 'TERÇA A QUINTA',
+    category: 'Happy Hour & Caldos',
     icon: SoupKitchenOutlined,
-    shortDesc: 'Cumbucas de caldo caseiro servidas na hora para espantar o frio de Curitiba + Chopp em dobro.',
-    highlight: 'Chopp Pilsen em Dobro até 20h',
-    handwrittenNote: 'perfeito pra esquentar a noite!',
-    badge: 'Temporada de Caldos',
-    image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1000&q=80',
-    whatsappMessage: 'Olá! Gostaria de saber mais sobre a noite de Caldos e Chopp em Dobro.',
+    time: 'Das 18h00 às 00h00',
+    title: 'TEMPORADA DE CALDOS & CHOPP EM DOBRO',
+    description:
+      'Cumbucas de caldo quente para espantar o frio clássico de Curitiba, acompanhadas de chopp pilsen em dobro até as 20h e porções de pastéis crocantes.',
+    chalkNote: 'perfeito pra esquentar a noite depois da firma!',
+    stamp: 'CHOPP EM DOBRO ATÉ 20H',
+    image:
+      'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80',
+    whatsappText:
+      'Opa! Gostaria de saber mais sobre a noite de Caldos e Chopp em Dobro no Coyote.',
   },
   {
     id: 'sexta',
-    day: 'Toda Sexta-Feira',
-    time: 'A partir das 19h30',
-    title: 'Sexta Acústica & Rodada de Sinuca',
+    dayShort: 'SEXTA',
+    dayFull: 'TODA SEXTA-FEIRA',
     category: 'Música & Conexão',
     icon: QueueMusicOutlined,
-    shortDesc: 'Voz e violão no palco com o melhor do pop rock e sertanejo, mesas de sinuca e chapa tinindo.',
-    highlight: 'Sinuca liberada + Petiscos na chapa',
-    handwrittenNote: 'o ponto de encontro do sextou na CIC',
-    badge: 'Música ao Vivo',
-    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80',
-    whatsappMessage: 'Olá! Quero reservar uma mesa para curtir a Sexta Acústica no Coyote.',
+    time: 'A partir das 19h30',
+    title: 'SEXTA ACÚSTICA & RODADA DE SINUCA',
+    description:
+      'O som ao vivo toma conta do palco com o melhor do acústico regional e pop rock. Mesas de sinuca estalando, chapa cheia de petiscos e a galera reunida para abrir o fim de semana.',
+    chalkNote: 'chega cedo pra garantir a mesa perto do palco!',
+    stamp: 'ENTRADA LIBERADA',
+    image:
+      'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80',
+    whatsappText:
+      'Salve! Quero reservar uma mesa para curtir a Sexta Acústica no Coyote.',
+  },
+  {
+    id: 'sabado-almoco',
+    dayShort: 'SÁB • ALMOÇO',
+    dayFull: 'SÁBADO AO MEIO-DIA',
+    category: 'Tradição da Casa',
+    icon: DinnerDiningOutlined,
+    time: 'Das 11h30 às 15h00',
+    title: 'A FAMOSA FEIJOADA COMPLETA DA DONA ANA',
+    description:
+      'Nosso almoço tradicional com buffet livre completo: feijoada preparada no capricho com todas as carnes, dobradinha, couve refogada, bisteca grelhada e saladas frescas.',
+    chalkNote: 'a receita de família mais elogiada do CIC!',
+    stamp: 'BUFFET LIVRE R$ 29,90',
+    image:
+      'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80',
+    whatsappText:
+      'Olá! Quero reservar mesa para o almoço de Feijoada no sábado no Coyote Bar.',
   },
   {
     id: 'sabado-noite',
-    day: 'Sábados à Noite',
-    time: 'A partir das 20h00',
-    title: 'Roda de Pagode & Modão Sertanejo',
-    category: 'Festas & Comemorações',
+    dayShort: 'SÁB • NOITE',
+    dayFull: 'SÁBADO À NOITE',
+    category: 'Comemorações & Shows',
     icon: SportsBarOutlined,
-    shortDesc: 'Casa cheia, música ao vivo com convidados especiais e espaço para aniversários e casamentos.',
-    highlight: 'Aniversariante da semana ganha brinde!',
-    handwrittenNote: 'palco dos 2 casamentos mais famosos do bairro!',
-    badge: 'Palco Aberto',
-    image: 'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1000&q=80',
-    whatsappMessage: 'Olá! Quero comemorar meu aniversário no Coyote Bar neste sábado.',
+    time: 'A partir das 20h00',
+    title: 'RODA DE PAGODE, MODÃO & FESTA',
+    description:
+      'A casa ferve com atrações ao vivo, torneiras de chopp artesanal e clima de pura celebração. O lugar onde aniversários, encontros e até casamentos já foram comemorados com muito brinde.',
+    chalkNote: 'aniversariante ganha brinde da casa com a galera!',
+    stamp: 'PALCO COYOTE',
+    image:
+      'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1200&q=80',
+    whatsappText:
+      'E aí! Quero comemorar meu aniversário no sábado à noite no Coyote.',
   },
 ];
 
 export default function MonthlyEvents() {
-  const [selectedIdx, setSelectedIdx] = useState(0);
-  const activeEvent = EVENTS_DATA[selectedIdx];
-  const ActiveIcon = activeEvent.icon;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef(null);
+  const SLIDE_DURATION = 6000; // 6 segundos por dia
+
+  useEffect(() => {
+    if (isPaused) return;
+
+    timerRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % WEEKLY_DAYS.length);
+    }, SLIDE_DURATION);
+
+    return () => clearInterval(timerRef.current);
+  }, [isPaused, activeIndex]);
+
+  const activeDay = WEEKLY_DAYS[activeIndex];
+  const ActiveIcon = activeDay.icon;
 
   return (
-    <section className={styles.section} aria-labelledby="live-events-heading">
-      <div className={styles.header}>
-        <h2 id="live-events-heading" className={styles.title}>
-          O QUE TÁ ROLANDO NO <span className={styles.highlight}>PALCO & NA COZINHA</span>
-        </h2>
-        <p className={styles.subtitle}>
-          Do almoço tradicional aos brindes da noite na CIC. Escolha o dia e viva a experiência de perto.
-        </p>
-      </div>
+    <section
+      className={styles.calendarSection}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setIsPaused(false)}
+      aria-label="O Semanário do Coyote"
+    >
+      <div className={styles.container}>
+        {/* Cabeçalho de Boteco */}
+        <div className={styles.sectionHeader}>
+          <div className={styles.tagLine}>
+            <CalendarMonthOutlined fontSize="small" />
+            <span>A ROTINA DA NOSSA CASA</span>
+          </div>
+          <h2 className={styles.title}>
+            O SEMANÁRIO <span className={styles.highlight}>DO COYOTE</span>
+          </h2>
+          <p className={styles.subtitle}>
+            De terça a sábado, o que tem na panela, no palco e nas torneiras. Escolha o dia ou deixe o tempo passar.
+          </p>
+        </div>
 
-      <div className={styles.eventsWrapper}>
-        {/* Coluna da Esquerda: Seletor Interativo */}
-        <div className={styles.listCol} role="tablist" aria-label="Programação da semana">
-          {EVENTS_DATA.map((evt, idx) => {
-            const Icon = evt.icon;
-            const isSelected = idx === selectedIdx;
+        {/* Régua de Dias da Semana com Timer de Progresso */}
+        <div className={styles.daysTrack} role="tablist" aria-label="Dias da semana">
+          {WEEKLY_DAYS.map((item, idx) => {
+            const isSelected = idx === activeIndex;
+            const Icon = item.icon;
             return (
-              <div
-                key={evt.id}
-                className={`${styles.eventItem} ${isSelected ? styles.eventItemActive : ''}`}
-                onMouseEnter={() => setSelectedIdx(idx)}
-                onClick={() => setSelectedIdx(idx)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setSelectedIdx(idx);
-                  }
-                }}
+              <button
+                key={item.id}
+                type="button"
+                className={`${styles.dayTab} ${isSelected ? styles.dayTabActive : ''}`}
+                onClick={() => setActiveIndex(idx)}
                 role="tab"
-                tabIndex={0}
                 aria-selected={isSelected}
               >
-                <div className={styles.itemHeader}>
-                  <span className={styles.itemDay}>{evt.day}</span>
-                  <span className={styles.itemTime}>
-                    <AccessTimeOutlined fontSize="inherit" />
-                    {evt.time}
-                  </span>
+                <div className={styles.tabContent}>
+                  <Icon className={styles.tabIcon} fontSize="small" />
+                  <span className={styles.tabDay}>{item.dayShort}</span>
                 </div>
-                <div className={styles.itemBody}>
-                  <div className={styles.iconCircle}>
-                    <Icon fontSize="small" />
-                  </div>
-                  <div className={styles.itemInfo}>
-                    <h3 className={styles.itemTitle}>{evt.title}</h3>
-                    <p className={styles.itemDesc}>{evt.shortDesc}</p>
-                  </div>
+                {/* Linha de Progresso do Autoplay */}
+                <div className={styles.tabProgressBarTrack}>
+                  <div
+                    key={`${item.id}-${isSelected ? activeIndex : 'inactive'}`}
+                    className={`
+                      ${styles.tabProgressBar}
+                      ${isSelected && !isPaused ? styles.tabProgressActive : ''}
+                      ${isSelected && isPaused ? styles.tabProgressPaused : ''}
+                    `}
+                  />
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
 
-        {/* Coluna da Direita: Palco Visual com Foto Real e CTA */}
-        <div className={styles.stageCol} aria-live="polite">
-          <div className={styles.stageCard}>
-            <div className={styles.imageFrame}>
-              <img
-                src={activeEvent.image}
-                alt={activeEvent.title}
-                className={styles.stageImage}
-              />
-              <div className={styles.imageOverlay} />
-              <span className={styles.handwrittenStamp}>{activeEvent.handwrittenNote}</span>
+        {/* Canvas do Dia Ativo (Sem Caixinhas Fechadas) */}
+        <div className={styles.giantStage}>
+          {/* Marca d'água gigante com o nome do dia */}
+          <div className={styles.watermarkDay} aria-hidden="true">
+            {activeDay.dayShort.split(' ')[0]}
+          </div>
+
+          <div className={styles.stageGrid}>
+            {/* Imagem Real com Carimbo e Anotação de Giz */}
+            <div className={styles.visualColumn}>
+              <div className={styles.imageFrame}>
+                <img
+                  src={activeDay.image}
+                  alt={activeDay.title}
+                  className={styles.realPhoto}
+                />
+                <div className={styles.photoVignette} />
+                <span className={styles.stampBadge}>{activeDay.stamp}</span>
+                <span className={styles.chalkAnnotation}>"{activeDay.chalkNote}"</span>
+              </div>
             </div>
 
-            <div className={styles.stageDetails}>
-              <div className={styles.stageCategory}>
-                <ActiveIcon className={styles.categoryIcon} fontSize="small" />
-                <span>
-                  {activeEvent.category} • {activeEvent.day}
+            {/* Informações Vivas do Dia */}
+            <div className={styles.infoColumn}>
+              <div className={styles.metaBadgeRow}>
+                <span className={styles.categoryBadge}>
+                  <ActiveIcon fontSize="inherit" /> {activeDay.category}
+                </span>
+                <span className={styles.timeBadge}>
+                  <AccessTimeOutlined fontSize="inherit" /> {activeDay.time}
                 </span>
               </div>
 
-              <h3 className={styles.stageTitle}>{activeEvent.title}</h3>
+              <span className={styles.fullDayLabel}>{activeDay.dayFull}</span>
+              <h3 className={styles.dayMainTitle}>{activeDay.title}</h3>
+              <p className={styles.dayDescription}>{activeDay.description}</p>
 
-              <div className={styles.highlightBox}>
-                <LocalOfferOutlined className={styles.offerIcon} fontSize="small" />
-                <span>{activeEvent.highlight}</span>
-              </div>
-
-              <div className={styles.stageActions}>
+              <div className={styles.stageFooter}>
                 <a
-                  href={`https://wa.me/5541997683925?text=${encodeURIComponent(activeEvent.whatsappMessage)}`}
+                  href={`https://wa.me/5541997683925?text=${encodeURIComponent(activeDay.whatsappText)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={styles.reserveBtn}
+                  className={styles.actionButton}
                 >
                   <WhatsApp fontSize="small" />
-                  <span>Garantir Mesa ou Reservar</span>
+                  <span>Garantir Mesa ou Saber Mais</span>
                 </a>
               </div>
             </div>

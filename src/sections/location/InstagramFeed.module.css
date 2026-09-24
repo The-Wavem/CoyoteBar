@@ -1,0 +1,237 @@
+.section {
+  position: relative;
+  background-color: var(--bg-primary);
+  padding: 96px 24px 104px;
+  overflow: hidden;
+}
+
+.bottomGlow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  max-width: 100%;
+  height: 280px;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    rgba(245, 185, 69, 0.12) 0%,
+    rgba(232, 158, 36, 0.03) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.headerBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  max-width: 760px;
+  margin: 0 auto 52px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(245, 185, 69, 0.08);
+  border: 1px solid rgba(245, 185, 69, 0.22);
+  border-radius: var(--radius-full);
+  color: var(--accent-amber-light);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 4.8vw, 3.6rem);
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.profileLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent-amber-light);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.profileLink:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.subtitle {
+  font-family: var(--font-handwritten);
+  font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Grade de 6 Fotos do Instagram */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+.postItem {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(245, 185, 69, 0.16);
+  overflow: hidden;
+  background-color: var(--bg-surface);
+  text-decoration: none;
+  display: block;
+}
+
+.postImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.postItem:hover .postImage {
+  transform: scale(1.08);
+}
+
+/* Hover Overlay com Curtidas & Comentários */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 9, 12, 0.82);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  text-align: center;
+}
+
+.postItem:hover .overlay {
+  opacity: 1;
+}
+
+.countersRow {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.counterItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.counterIcon {
+  color: var(--accent-amber);
+}
+
+.postCaption {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.postTag {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-amber-light);
+  font-weight: 600;
+}
+
+/* Botão de Fechamento da Seção */
+.footerCtaBlock {
+  display: flex;
+  justify-content: center;
+}
+
+.instaCtaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 32px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--accent-amber);
+  background: rgba(245, 185, 69, 0.08);
+  color: var(--accent-amber-light);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.instaCtaBtn:hover {
+  background-color: var(--accent-amber);
+  color: #0f0e0c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px var(--accent-amber-glow);
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .section {
+    padding: 72px 20px 80px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .headerBlock {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 580px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .instaCtaBtn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1.1rem;
+    padding: 13px 20px;
+  }
+}
