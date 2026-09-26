@@ -5,6 +5,7 @@ import Home from './pages/public/Home';
 import Location from './pages/public/Location';
 import Contact from './pages/public/Contact';
 import Menu from './pages/public/Menu';
+import WaiterPanel from './pages/staff/WaiterPanel';
 
 export default function Router() {
   return (
@@ -16,8 +17,11 @@ export default function Router() {
         <Route path="contato" element={<Contact />} />
       </Route>
 
-      {/* WebApp Independente de Cardápio de Mesa (Sem Navbar e Footer Institucionais) */}
+      {/* WebApp Independente de Cardápio de Mesa */}
       <Route path="/cardapio" element={<Menu />} />
+
+      {/* Painel Operacional do Garçom / Balcão */}
+      <Route path="/garcom" element={<WaiterPanel />} />
     </Routes>
   );
 }
