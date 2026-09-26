@@ -1,113 +1,108 @@
 .panelViewport {
   min-height: 100vh;
-  background-color: #07080b;
-  color: #fbf8f2;
+  background-color: #f4f5f8;
+  color: #1a1a1a;
   font-family: var(--font-body);
   display: flex;
   flex-direction: column;
 }
 
 .panelHeader {
-  background: #111319;
-  border-bottom: 2px solid rgba(232, 158, 36, 0.25);
-  padding: 16px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .headerLeft {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+}
+
+.brandIcon {
+  width: 40px;
+  height: 40px;
+  background: #090a0f;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .panelTitle {
-  font-family: var(--font-heading);
-  font-size: 1.45rem;
-  letter-spacing: 0.05em;
+  font-size: 1.15rem;
+  font-weight: 700;
   margin: 0;
-  line-height: 1;
+  color: #0f172a;
 }
 
 .activeCallsCount {
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--accent-amber);
-  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
 }
 
 .headerActions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
-.activateAudioBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #b91c1c;
-  color: #ffffff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  animation: pulseButton 1.5s infinite;
-}
-
-@keyframes pulseButton {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(185, 28, 28, 0.7);
-  }
-  70% {
-    transform: scale(1.03);
-    box-shadow: 0 0 0 10px rgba(185, 28, 28, 0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.audioActiveBadge {
+.soundEnableBtn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #10b981;
-  font-size: 0.8rem;
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  background: rgba(16, 185, 129, 0.12);
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.soundEnableBtn:hover {
+  opacity: 0.9;
+}
+
+.soundActiveBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #15803d;
+  background: #dcfce7;
   padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .exitLink {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: var(--text-muted);
+  color: #64748b;
   text-decoration: none;
   font-size: 0.85rem;
+  font-weight: 600;
   transition: color var(--transition-fast);
 }
 
 .exitLink:hover {
-  color: var(--text-primary);
+  color: #0f172a;
 }
 
-/* Área de Conteúdo */
-.panelContent {
+.panelContainer {
   flex: 1;
   padding: 24px;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 }
@@ -115,128 +110,115 @@
 .cardsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  gap: 16px;
 }
 
-/* Cartão de Chamado */
-.callCard {
-  background: #14161f;
+/* Card do Chamado */
+.orderCard {
+  background: #ffffff;
   border-radius: 8px;
-  border: 2px solid #232734;
-  padding: 20px;
+  border: 1px solid #e2e8f0;
+  padding: 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 18px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  gap: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
-/* Níveis de Urgência */
-.urgencyNormal {
-  border-color: rgba(232, 158, 36, 0.4);
+.cardNormal {
+  border-left: 5px solid #22c55e;
 }
 
-.urgencyWarning {
-  border-color: #f59e0b;
-  background: #1b1712;
+.cardWarning {
+  border-left: 5px solid #f59e0b;
+  background: #fffdfa;
 }
 
-.urgencyCritical {
-  border-color: #ef4444;
-  background: #201012;
-  animation: criticalFlash 1.4s infinite alternate ease-in-out;
+.cardCritical {
+  border-left: 5px solid #ef4444;
+  background: #fffbfa;
 }
 
-@keyframes criticalFlash {
-  from {
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
-  }
-  to {
-    box-shadow: 0 0 35px rgba(239, 68, 68, 0.6);
-  }
-}
-
-.statusOnWay {
-  border-color: #3b82f6;
+.cardOnWay {
+  border-left: 5px solid #3b82f6;
   opacity: 0.9;
 }
 
-/* Topo do Card */
 .cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.tableBadge {
+.tableBlock {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px;
 }
 
 .tableLabel {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--text-muted);
+  color: #64748b;
 }
 
 .tableNumber {
-  font-family: var(--font-heading);
-  font-size: 2.8rem;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0f172a;
   line-height: 1;
-  color: var(--accent-amber-light);
-  letter-spacing: 0.04em;
 }
 
 .timerBadge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   font-family: monospace;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 700;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 6px 10px;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 4px 8px;
   border-radius: 4px;
 }
 
-.urgencyCritical .timerBadge {
-  color: #ef4444;
+.cardCritical .timerBadge {
+  color: #b91c1c;
+  background: #fee2e2;
 }
 
-/* Corpo do Card */
 .reasonRow {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .reasonIcon {
-  color: var(--accent-amber);
+  color: #475569;
 }
 
 .reasonText {
-  font-family: var(--font-body);
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #1e293b;
 }
 
-.onWayIndicator {
-  display: block;
-  font-family: var(--font-handwritten);
-  font-size: 1.25rem;
-  color: #60a5fa;
-  margin-top: 6px;
+.onWayBadge {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  background: #dbeafe;
+  padding: 2px 8px;
+  border-radius: 4px;
 }
 
-/* Ações do Card */
 .cardActions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
 }
 
 .onWayBtn,
@@ -245,70 +227,51 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 14px 10px;
-  border: none;
+  padding: 10px;
   border-radius: 6px;
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  letter-spacing: 0.04em;
+  font-size: 0.88rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.15s ease, filter 0.15s ease;
+  border: none;
+  transition: opacity var(--transition-fast);
 }
 
 .onWayBtn {
-  background: #1e293b;
-  color: #93c5fd;
-  border: 1px solid #3b82f6;
+  background: #f1f5f9;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
 }
 
 .resolveBtn {
-  background: #10b981;
-  color: #07080b;
-  font-weight: 800;
+  background: #0f172a;
+  color: #ffffff;
 }
 
 .onWayBtn:hover,
 .resolveBtn:hover {
-  filter: brightness(1.15);
-  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
-/* Empty Queue */
 .emptyQueue {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   text-align: center;
-  padding: 100px 20px;
-  color: var(--text-muted);
+  padding: 80px 20px;
+  color: #94a3b8;
 }
 
 .emptyIcon {
-  font-size: 4rem !important;
-  color: #10b981;
-  margin-bottom: 16px;
+  font-size: 3.5rem !important;
+  color: #22c55e;
+  margin-bottom: 12px;
 }
 
 .emptyTitle {
-  font-family: var(--font-heading);
-  font-size: 2.2rem;
-  color: var(--text-primary);
-  margin: 0 0 8px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 6px;
 }
 
 .emptySub {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  max-width: 440px;
-}
-
-@media (max-width: 600px) {
-  .panelHeader {
-    padding: 12px 16px;
-  }
-
-  .cardsGrid {
-    grid-template-columns: 1fr;
-  }
+  font-size: 0.92rem;
+  margin: 0;
 }

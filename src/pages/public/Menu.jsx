@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   SearchOutlined,
@@ -10,15 +10,53 @@ import {
   NotificationsNoneOutlined,
   ArrowBackIosNewOutlined,
   CloseOutlined,
+  CheckCircleOutline,
 } from '@mui/icons-material';
 import CoyoteLogo from '../../components/common/CoyoteLogo';
 import { MENU_CATEGORIES, MENU_ITEMS } from '../../data/menuData';
+import {
+  getSavedTableNumber,
+  saveTableNumber,
+  createCall,
+} from '../../services/callService';
 import styles from './Menu.module.css';
+
+const CALL_REASONS = [
+  { id: 'atendimento', reason: 'Atendimento na mesa', type: 'atendimento' },
+  { id: 'conta_cartao', reason: 'Trazer a conta (Cartão / Pix)', type: 'conta' },
+  { id: 'conta_dinheiro', reason: 'Trazer a conta (Dinheiro)', type: 'conta' },
+];
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState('todos');
   const [searchQuery, setSearchQuery] = useState('');
   const [infoModalOpen, setInfoModalOpen] = useState(false);
+
+  // Estados do Modal de Chamado de Mesa
+  const [callModalOpen, setCallModalOpen] = useState(false);
+  const [tableNumber, setTableNumber] = useState(() => getSavedTableNumber() || '');
+  const [selectedReason, setSelectedReason] = useState('atendimento');
+  const [callSuccessMsg, setCallSuccessMsg] = useState('');
+  const [cooldownRemaining, setCooldownRemaining] = useState(0);
+  const tableInputRef = useRef(null);
+
+  // Foco no input de mesa ao abrir o modal
+  useEffect(() => {
+    if (callModalOpen && tableInputRef.current) {
+      setTimeout(() => {
+        tableInputRef.current?.focus();
+      }, 100);
+    }
+  }, [callModalOpen]);
+
+  // Contador de cooldown de 90 segundos anti-spam
+  useEffect(() => {
+    if (cooldownRemaining <= 0) return;
+    const timer = setInterval(() => {
+      setCooldownRemaining((prev) => Math.max(0, prev - 1));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [cooldownRemaining]);
 
   // Categorias excluindo 'todos' e 'destaques' para a listagem agrupada
   const displayCategories = useMemo(() => {
@@ -49,6 +87,38 @@ export default function Menu() {
       }))
       .filter((group) => group.items.length > 0);
   }, [activeCategory, searchQuery, displayCategories]);
+
+  const handleOpenCallModal = () => {
+    if (cooldownRemaining > 0) return;
+    setCallSuccessMsg('');
+    setCallModalOpen(true);
+  };
+
+  const handleConfirmCall = (e) => {
+    e.preventDefault();
+    const cleanTable = tableNumber.trim();
+    if (!cleanTable) {
+      tableInputRef.current?.focus();
+      return;
+    }
+
+    saveTableNumber(cleanTable);
+    const chosen = CALL_REASONS.find((r) => r.id === selectedReason) || CALL_REASONS[0];
+
+    createCall({
+      table: cleanTable,
+      reason: chosen.reason,
+      type: chosen.type,
+    });
+
+    setCallSuccessMsg(`Garçom avisado! Estamos a caminho da Mesa ${cleanTable}.`);
+    setCooldownRemaining(90);
+
+    setTimeout(() => {
+      setCallModalOpen(false);
+      setCallSuccessMsg('');
+    }, 2200);
+  };
 
   return (
     <div className={styles.appViewport}>
@@ -259,6 +329,82 @@ export default function Menu() {
         </div>
       )}
 
+      {/* Modal / Bottom Sheet para Chamar Garçom na Mesa */}
+      {callModalOpen && (
+        <div
+          className={styles.callModalBackdrop}
+          onClick={() => setCallModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="call-modal-title"
+        >
+          <div className={styles.callModalSheet} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.callModalHeader}>
+              <h3 id="call-modal-title">Chamar Garçom</h3>
+              <button
+                type="button"
+                onClick={() => setCallModalOpen(false)}
+                aria-label="Fechar chamado"
+                className={styles.modalCloseBtn}
+              >
+                <CloseOutlined />
+              </button>
+            </div>
+
+            {callSuccessMsg ? (
+              <div className={styles.successFeedback}>
+                <CheckCircleOutline sx={{ fontSize: 24, marginBottom: '6px' }} />
+                <div>{callSuccessMsg}</div>
+              </div>
+            ) : (
+              <form onSubmit={handleConfirmCall}>
+                <div className={styles.tableInputGroup}>
+                  <label htmlFor="table-number-input" className={styles.tableInputLabel}>
+                    Qual o número da sua mesa?
+                  </label>
+                  <input
+                    id="table-number-input"
+                    ref={tableInputRef}
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={4}
+                    placeholder="Ex: 04"
+                    value={tableNumber}
+                    onChange={(e) => setTableNumber(e.target.value.replace(/\D/g, ''))}
+                    className={styles.tableInput}
+                    required
+                  />
+                </div>
+
+                <div className={styles.reasonsList}>
+                  <span className={styles.tableInputLabel}>Do que você precisa?</span>
+                  {CALL_REASONS.map((r) => (
+                    <button
+                      key={r.id}
+                      type="button"
+                      className={`${styles.reasonOption} ${
+                        selectedReason === r.id ? styles.reasonOptionActive : ''
+                      }`}
+                      onClick={() => setSelectedReason(r.id)}
+                    >
+                      <span className={styles.radioDot}>
+                        {selectedReason === r.id && <span className={styles.radioDotInner} />}
+                      </span>
+                      <span>{r.reason}</span>
+                    </button>
+                  ))}
+                </div>
+
+                <button type="submit" className={styles.confirmCallBtn}>
+                  Confirmar Chamado
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Bottom Navigation Bar Fixa no Rodapé (Estilo App) */}
       <footer className={styles.bottomAppNav} aria-label="Navegação do aplicativo">
         <div className={styles.bottomNavContainer}>
@@ -284,16 +430,18 @@ export default function Menu() {
             <ReceiptLongOutlined fontSize="small" />
             <span>Fazer Pedido</span>
           </a>
-          <a
-            href="https://wa.me/5541997683925?text=Ol%C3%A1!%20Poderia%20chamar%20o%20atendimento%20na%20minha%20mesa%3F"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.bottomNavItem}
-            aria-label="Chamar garçom via WhatsApp"
+          <button
+            type="button"
+            onClick={handleOpenCallModal}
+            className={`${styles.bottomNavItem} ${cooldownRemaining > 0 ? styles.bottomNavDisabled : ''}`}
+            aria-label="Chamar garçom na mesa"
+            disabled={cooldownRemaining > 0}
           >
             <NotificationsNoneOutlined fontSize="small" />
-            <span>Chamar Garçom</span>
-          </a>
+            <span>
+              {cooldownRemaining > 0 ? `Aguarde (${cooldownRemaining}s)` : 'Chamar Garçom'}
+            </span>
+          </button>
         </div>
       </footer>
     </div>

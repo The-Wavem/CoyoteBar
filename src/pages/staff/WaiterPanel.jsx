@@ -1,4 +1,4 @@
-import React, { useState, useRef, useSyncExternalStore } from 'react';
+import React, { useState, useEffect, useRef, useSyncExternalStore } from 'react';
 import { Link } from 'react-router-dom';
 import {
   VolumeUpOutlined,
@@ -12,6 +12,7 @@ import {
   DoneAllOutlined,
 } from '@mui/icons-material';
 import CoyoteLogo from '../../components/common/CoyoteLogo';
+import { getActiveCalls, updateCallStatus, subscribeCalls } from '../../services/callService';
 import styles from './WaiterPanel.module.css';
 
 // Subscription externa de relógio para React 19 puro (sem cascading renders)
@@ -24,39 +25,16 @@ function getClockSnapshot() {
   return Math.floor(Date.now() / 1000);
 }
 
-// Mock inicial de chamados para teste de operação
-const INITIAL_TIMESTAMP = Date.now();
-const INITIAL_CALLS = [
-  {
-    id: 'call-101',
-    table: '04',
-    reason: 'Pedir a Conta (Cartão)',
-    type: 'conta',
-    createdAt: INITIAL_TIMESTAMP - 260000, // 4m20s atrás (Crítico)
-    status: 'pendente',
-  },
-  {
-    id: 'call-102',
-    table: '12',
-    reason: 'Atendimento na Mesa',
-    type: 'atendimento',
-    createdAt: INITIAL_TIMESTAMP - 110000, // 1m50s atrás (Atenção)
-    status: 'a_caminho',
-  },
-  {
-    id: 'call-103',
-    table: '02',
-    reason: 'Novo Pedido / Dúvida Cardápio',
-    type: 'pedido',
-    createdAt: INITIAL_TIMESTAMP - 35000, // 35s atrás (Novo)
-    status: 'pendente',
-  },
-];
-
 export default function WaiterPanel() {
-  const [calls, setCalls] = useState(INITIAL_CALLS);
+  const [calls, setCalls] = useState(() => getActiveCalls());
   const [audioEnabled, setAudioEnabled] = useState(false);
   const audioCtxRef = useRef(null);
+  const audioEnabledRef = useRef(false);
+
+  // Mantém a ref sincronizada para uso dentro do callback de evento
+  useEffect(() => {
+    audioEnabledRef.current = audioEnabled;
+  }, [audioEnabled]);
 
   // Relógio sincronizado via useSyncExternalStore
   const currentSec = useSyncExternalStore(subscribeToClock, getClockSnapshot);
@@ -64,14 +42,14 @@ export default function WaiterPanel() {
 
   const playAlertTone = () => {
     try {
-      if (!audioCtxRef.current) return;
+      if (!audioCtxRef.current || !audioEnabledRef.current) return;
       const ctx = audioCtxRef.current;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
 
       osc.type = 'square';
-      osc.frequency.setValueAtTime(880, ctx.currentTime); // Tom inicial
-      osc.frequency.setValueAtTime(1760, ctx.currentTime + 0.1); // Agudo duplo
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.setValueAtTime(1760, ctx.currentTime + 0.1);
 
       gain.gain.setValueAtTime(0.3, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
@@ -82,16 +60,26 @@ export default function WaiterPanel() {
       osc.start();
       osc.stop(ctx.currentTime + 0.35);
 
-      // Vibração móvel se disponível
       if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
         navigator.vibrate([300, 100, 300]);
       }
     } catch (e) {
-      console.error('Falha ao disparar áudio do balcão:', e);
+      console.error('Erro ao emitir alerta sonoro:', e);
     }
   };
 
-  // Inicializador do Web Audio API (bip sonoro do balcão)
+  // Assina os chamados em tempo real (multi-abas)
+  useEffect(() => {
+    const unsubscribe = subscribeCalls((newCalls, event) => {
+      setCalls(newCalls);
+      if (event?.type === 'NEW_CALL') {
+        playAlertTone();
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const initAudio = () => {
     if (!audioCtxRef.current && typeof window !== 'undefined') {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -103,44 +91,48 @@ export default function WaiterPanel() {
       audioCtxRef.current.resume();
     }
     setAudioEnabled(true);
+    audioEnabledRef.current = true;
     playAlertTone();
   };
 
   const handleSetOnWay = (id) => {
-    setCalls((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, status: 'a_caminho' } : c))
-    );
+    const updated = updateCallStatus(id, 'a_caminho');
+    setCalls(updated);
   };
 
   const handleResolve = (id) => {
-    setCalls((prev) => prev.filter((c) => c.id !== id));
+    const updated = updateCallStatus(id, 'resolvido');
+    setCalls(updated);
   };
 
   const formatElapsed = (createdAt) => {
-    const diffSec = Math.max(0, Math.floor((currentTime - createdAt) / 1000));
+    const now = currentTime || createdAt;
+    const diffSec = Math.max(0, Math.floor((now - createdAt) / 1000));
     const mins = Math.floor(diffSec / 60);
     const secs = diffSec % 60;
     return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
   };
 
   const getUrgencyClass = (createdAt, status) => {
-    if (status === 'a_caminho') return styles.statusOnWay;
+    if (status === 'a_caminho') return styles.cardOnWay;
     const diffSec = (currentTime - createdAt) / 1000;
-    if (diffSec > 240) return styles.urgencyCritical; // > 4 min
-    if (diffSec > 120) return styles.urgencyWarning; // > 2 min
-    return styles.urgencyNormal;
+    if (diffSec > 240) return styles.cardCritical;
+    if (diffSec > 120) return styles.cardWarning;
+    return styles.cardNormal;
   };
 
   return (
     <div className={styles.panelViewport}>
-      {/* Topo Operacional */}
+      {/* Topo Clean */}
       <header className={styles.panelHeader}>
         <div className={styles.headerLeft}>
-          <CoyoteLogo size={38} />
+          <div className={styles.brandIcon}>
+            <CoyoteLogo size={34} />
+          </div>
           <div>
-            <h1 className={styles.panelTitle}>RADAR DO SALÃO • COYOTE BAR</h1>
+            <h1 className={styles.panelTitle}>Radar de Atendimento • Coyote Bar</h1>
             <span className={styles.activeCallsCount}>
-              {calls.length} {calls.length === 1 ? 'MESA CHAMANDO' : 'MESAS CHAMANDO'}
+              {calls.length} {calls.length === 1 ? 'mesa aguardando' : 'mesas aguardando'}
             </span>
           </div>
         </div>
@@ -150,44 +142,42 @@ export default function WaiterPanel() {
             <button
               type="button"
               onClick={initAudio}
-              className={styles.activateAudioBtn}
+              className={styles.soundEnableBtn}
               aria-label="Ativar som do balcão"
             >
               <VolumeOffOutlined fontSize="small" />
-              <span>ATIVAR SOM DO BALCÃO</span>
+              <span>Ativar Som do Balcão</span>
             </button>
           ) : (
-            <div className={styles.audioActiveBadge}>
+            <div className={styles.soundActiveBadge}>
               <VolumeUpOutlined fontSize="small" />
-              <span>SOM ATIVO</span>
+              <span>Alerta Sonoro Ativo</span>
             </div>
           )}
 
-          <Link className={styles.exitLink} title="Sair do Radar" to="/">
+          <Link className={styles.exitLink} to="/cardapio" aria-label="Ir ao Cardápio">
             <ArrowBackIosNewOutlined fontSize="inherit" />
-            <span>Sair</span>
+            <span>Cardápio</span>
           </Link>
         </div>
       </header>
 
-      {/* Grid de Chamados do Salão */}
-      <main className={styles.panelContent}>
+      {/* Conteúdo Principal */}
+      <main className={styles.panelContainer}>
         {calls.length === 0 ? (
           <div className={styles.emptyQueue}>
             <DoneAllOutlined className={styles.emptyIcon} />
-            <h2 className={styles.emptyTitle}>SALÃO SOB CONTROLE</h2>
-            <p className={styles.emptySub}>
-              Nenhuma mesa chamando no momento. O chopp tá correndo solto.
-            </p>
+            <h2 className={styles.emptyTitle}>Salão sob controle</h2>
+            <p className={styles.emptySub}>Nenhuma mesa chamando no momento.</p>
           </div>
         ) : (
           <div className={styles.cardsGrid}>
             {calls.map((call) => {
               const urgencyClass = getUrgencyClass(call.createdAt, call.status);
               return (
-                <div key={call.id} className={`${styles.callCard} ${urgencyClass}`}>
+                <div key={call.id} className={`${styles.orderCard} ${urgencyClass}`}>
                   <div className={styles.cardHeader}>
-                    <div className={styles.tableBadge}>
+                    <div className={styles.tableBlock}>
                       <span className={styles.tableLabel}>MESA</span>
                       <span className={styles.tableNumber}>{call.table}</span>
                     </div>
@@ -209,9 +199,7 @@ export default function WaiterPanel() {
                     </div>
 
                     {call.status === 'a_caminho' && (
-                      <span className={styles.onWayIndicator}>
-                        Garçom a caminho da mesa...
-                      </span>
+                      <span className={styles.onWayBadge}>Garçom a caminho</span>
                     )}
                   </div>
 
@@ -224,17 +212,17 @@ export default function WaiterPanel() {
                         aria-label={`Marcar a caminho da mesa ${call.table}`}
                       >
                         <DirectionsRunOutlined fontSize="small" />
-                        <span>A CAMINHO</span>
+                        <span>A Caminho</span>
                       </button>
                     )}
                     <button
                       type="button"
                       onClick={() => handleResolve(call.id)}
                       className={styles.resolveBtn}
-                      aria-label={`Finalizar chamado da mesa ${call.table}`}
+                      aria-label={`Finalizar atendimento da mesa ${call.table}`}
                     >
                       <CheckCircleOutline fontSize="small" />
-                      <span>ATENDIDO</span>
+                      <span>Atendido</span>
                     </button>
                   </div>
                 </div>
